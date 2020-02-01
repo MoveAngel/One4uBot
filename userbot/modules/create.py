@@ -17,7 +17,7 @@ async def telegraphs(grop):
         if type_of_group == "b":
             try:
                 result = await grop.client(functions.messages.CreateChatRequest(  # pylint:disable=E0602
-                    users=["@thethuggbot"],
+                    users=["@EmiliaHikariBot"],
                     # Not enough users (to create a chat, for example)
                     # Telegram, no longer allows creating a chat with ourselves
                     title=group_name
@@ -25,7 +25,7 @@ async def telegraphs(grop):
                 created_chat_id = result.chats[0].id
                 await grop.client(functions.messages.DeleteChatUserRequest(
                     chat_id=created_chat_id,
-                    user_id="@thethuggbot"
+                    user_id="@EmiliaHikariBot"
                 ))
                 result = await grop.client(functions.messages.ExportChatInviteRequest(
                     peer=created_chat_id,
@@ -52,10 +52,10 @@ CMD_HELP.update({
     "create": "\
 Create\
 \nUsage: Create Channel, Group & Group With Bot.\
-\n\n.create g\
+\n\n.create g <group name>\
 \nUsage: Create a Private Group.\
-\n\n.create b\
+\n\n.create b <group name>\
 \nUsage: Create a Group with Bot.\
-\n\n.create c\
+\n\n.create c <channel name>\
 \nUsage: Create a Channel.\
 "})
