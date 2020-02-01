@@ -147,6 +147,11 @@ async def promote(promt):
         await promt.edit(NO_PERM)
         return
 
+
+    await sleep(2)
+    await promt.delete()
+
+
     # Announce to the logging group if we have promoted successfully
     if BOTLOG:
         await promt.client.send_message(
@@ -195,6 +200,11 @@ async def demote(dmod):
         await dmod.edit(NO_PERM)
         return
     await dmod.edit("`Demoted Successfully!`")
+
+
+    await sleep(2)
+    await dmod.delete()
+
 
     # Announce to the logging group if we have demoted successfully
     if BOTLOG:
@@ -248,6 +258,12 @@ async def ban(bon):
         await bon.edit(f"`{str(user.id)}` was banned !!\nReason: {reason}")
     else:
         await bon.edit(f"`{str(user.id)}` was banned !!")
+
+
+    await sleep(2)
+    await bon.delete()
+
+
     # Announce to the logging group if we have banned the person
     # successfully!
     if BOTLOG:
@@ -284,6 +300,11 @@ async def nothanos(unbon):
         await unbon.client(
             EditBannedRequest(unbon.chat_id, user.id, UNBAN_RIGHTS))
         await unbon.edit("```Unbanned Successfully```")
+
+
+    await sleep(2)
+    await unbon.delete()
+
 
         if BOTLOG:
             await unbon.client.send_message(
@@ -343,6 +364,11 @@ async def spider(spdr):
                 await spdr.edit(f"`Safely taped !!`\nReason: {reason}")
             else:
                 await spdr.edit("`Safely taped !!`")
+    
+
+    await sleep(2)
+    await spdr.delete()
+
 
             # Announce to logging group
             if BOTLOG:
@@ -394,6 +420,11 @@ async def unmoot(unmot):
         except UserIdInvalidError:
             await unmot.edit("`Uh oh my unmute logic broke!`")
             return
+
+    
+    await sleep(2)
+    await unmot.delete()
+
 
         if BOTLOG:
             await unmot.client.send_message(
@@ -469,6 +500,11 @@ async def ungmoot(un_gmute):
         # Inform about success
         await un_gmute.edit("```Ungmuted Successfully```")
 
+
+    await sleep(2)
+    await un_gmute.delete()
+
+
         if BOTLOG:
             await un_gmute.client.send_message(
                 BOTLOG_CHATID, "#UNGMUTE\n"
@@ -512,6 +548,11 @@ async def gspider(gspdr):
             await gspdr.edit(f"`Globally taped!`Reason: {reason}")
         else:
             await gspdr.edit("`Globally taped!`")
+
+
+    await sleep(2)
+    await gspdr.delete()
+
 
         if BOTLOG:
             await gspdr.client.send_message(
@@ -646,6 +687,8 @@ async def pin(msg):
         return
 
     await msg.edit("`Pinned Successfully!`")
+    await sleep(2)
+    await msg.delete()
 
     user = await get_user_from_id(msg.from_id, msg)
 
@@ -691,6 +734,11 @@ async def kick(usr):
     else:
         await usr.edit(
             f"`Kicked` [{user.first_name}](tg://user?id={user.id})`!`")
+
+
+    await sleep(2)
+    await usr.delete()
+
 
     if BOTLOG:
         await usr.client.send_message(

@@ -1,7 +1,7 @@
 {
-  "name": "Telegram Open User Bot",
-  "description": "[OpenUserBot] A modular Telegram userbot running on Python 3.7+ with an sqlalchemy database.",
-  "logo": "https://telegra.ph/file/d04a1724c6dd8a957bd0e.png",
+  "name": "Telegram One 4u Bot",
+  "description": "[One4uBot] A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.",
+  "logo": "https://i.ibb.co/CzXcJ0S/photo-2020-01-28-23-32-03.jpg",
   "keywords": [
     "telegram",
     "userbot",
@@ -9,9 +9,9 @@
     "modular",
     "productivity"
   ],
-  "repository": "https://github.com/mkaraniya/OpenUserBot",
+  "repository": "https://github.com/MoveAngel/One4uBot",
   "website": "https://telegra.ph/How-to-host-a-Telegram-Userbot-11-02",
-  "success_url": "https://t.me/PPE_Support",
+  "success_url": "https://t.me/userbotindo",
   "stack": "container",
   "env": {
     "API_KEY": {
@@ -51,6 +51,11 @@
       "description": "Change this value in case your country has multiple Time Zones.",
       "value": "1",
       "required": false
+    },
+    "TELEGRAPH": {
+      "description": "Fill the value up to you.",
+      "value": "Userbot",
+      "required": true
     },
     "CHROME_DRIVER": {
       "description": "ChromeDriver location for selenium based modules.",
@@ -136,7 +141,7 @@
     },
     "DEFAULT_BIO": {
       "description": "Default profile bio.",
-      "value": "[PM = Report Spam] I ❤ ️@OpenUserBot",
+      "value": "[PM = Report Spam] I ❤ ️One4uBot",
       "required": false
     },
     "ALIVE_NAME": {

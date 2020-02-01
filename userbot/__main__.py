@@ -29,9 +29,8 @@ for module_name in ALL_MODULES:
 LOGS.info("You are running OpenUserBot [v7.7.7]")
 
 LOGS.info(
-    "😘 Congratulations, your userbot is now running !! Test it by typing .ping in any chat 😘."
-    "Once died 😵, but now ON again 😉, A BIG thanks to https://github.com/Devp73 Dev Patel who have helped make this userbot ON AGAIN with his HUGE FIX!!"
-    "If you need assistance, head to https://t.me/PPE_Support")
+    "Congratulations, your userbot is now running !! Test it by typing .alive in any chat."
+    "If you need assistance, head to https://t.me/userbotindo")
 
 if len(argv) not in (1, 3, 4):
     bot.disconnect()
