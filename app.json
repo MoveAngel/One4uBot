@@ -52,7 +52,7 @@
       "value": "1",
       "required": false
     },
-    "TELEGRAPH": {
+    "TELEGRAPH_SHORT_NAME": {
       "description": "Fill the value up to you.",
       "value": "Userbot",
       "required": true

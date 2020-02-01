@@ -3,7 +3,7 @@ import os
 from PIL import Image
 from datetime import datetime
 from telegraph import Telegraph, upload_file, exceptions
-from userbot import (TELEGRAPH_SHORT_NAME, TMP_DOWNLOAD_DIRECTORY, BOTLOG_CHATID, CMD_HELP, bot)
+from userbot import (TELEGRAPH_SHORT_NAME, TEMP_DOWNLOAD_DIRECTORY, BOTLOG_CHATID, CMD_HELP, bot)
 from userbot.events import register
 
 telegraph = Telegraph()
@@ -17,8 +17,8 @@ async def telegraphs(graph):
     if not graph.text[0].isalpha() and graph.text[0] not in ("/", "#", "@", "!"):
         if graph.fwd_from:
             return
-        if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
-            os.makedirs(TMP_DOWNLOAD_DIRECTORY)
+        if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+            os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
         if graph.reply_to_msg_id:
             start = datetime.now()
             r_message = await graph.get_reply_message()
@@ -26,7 +26,7 @@ async def telegraphs(graph):
             if input_str == "media":
                 downloaded_file_name = await bot.download_media(
                     r_message,
-                    TMP_DOWNLOAD_DIRECTORY
+                    TEMP_DOWNLOAD_DIRECTORY
                 )
                 end = datetime.now()
                 ms = (end - start).seconds
@@ -54,7 +54,7 @@ async def telegraphs(graph):
                         title_of_page = page_content
                     downloaded_file_name = await bot.download_media(
                         r_message,
-                        TMP_DOWNLOAD_DIRECTORY
+                        TEMP_DOWNLOAD_DIRECTORY
                     )
                     m_list = None
                     with open(downloaded_file_name, "rb") as fd:
