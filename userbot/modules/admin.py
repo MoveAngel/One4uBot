@@ -609,9 +609,9 @@ async def tagaso(event):
     await event.delete()
     mentions = "@all"
     chat = await event.get_input_chat()
-    async for user in event.client.iter_participants(chat, 50):
+    async for user in bot.client.iter_participants(chat, 500):
         mentions += f"[\u2063](tg://user?id={user.id})"
-    await event.client.send_message(
+    await bot.client.send_message(
         chat, mentions, reply_to=event.message.reply_to_msg_id)
 
 

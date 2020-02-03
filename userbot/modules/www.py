@@ -14,7 +14,7 @@ from userbot import CMD_HELP, bot
 from userbot.events import register
 
 
-@register(outgoing=True, pattern="^.speed$")
+@register(outgoing=True, pattern="^.speedtest(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
