@@ -17,10 +17,12 @@ from userbot.events import register
 
 # ========================= CONSTANTS ============================
 UNAPPROVED_MSG = (
-    "`HeY! This is an automated message.\n\n`"
-    "`I haven't approved you to PM yet.`"
-    "`Please wait for me to look in, I mostly approve PMs.\n\n`"
-    "`Until then, please don't spam my Mastor's PM, you'll get blocked and reported if you do so!`")
+    "`Hey! Sorry, I haven't approved you to PM yet.`\n"
+    "`Please wait for me to look in`\n"
+    "`Until then, please don't spam my PM..`\n"
+    "`Thank you for being patient.`\n\n"
+    "`*This is an automated message`\n"
+    "`💖미나💖`")
 # =================================================================
 
 
@@ -69,8 +71,8 @@ async def permitpm(event):
 
                 if COUNT_PM[event.chat_id] > 4:
                     await event.respond(
-                        "`You were spamming my Mastor's PM, which I didn't like.`\n"
-                        "`You have been BLOCKED and reported as SPAM, until further notice.`"
+                        "`I didn't like you spamming my PM.`\n"
+                        "`You have been BLOCKED and reported as SPAM, wait a minute until i online.`"
                     )
 
                     try:
@@ -238,12 +240,12 @@ async def blockpm(block):
         aname = replied_user.id
         name0 = str(replied_user.first_name)
         await block.client(BlockRequest(replied_user.id))
-        await block.edit("`You've been blocked!`")
+        await block.edit("`You has been blocked!`")
         uid = replied_user.id
     else:
         await block.client(BlockRequest(block.chat_id))
         aname = await block.client.get_entity(block.chat_id)
-        await block.edit("`You've been blocked!`")
+        await block.edit("`You has been blocked!`")
         name0 = str(aname.first_name)
         uid = block.chat_id
 
@@ -268,7 +270,7 @@ async def unblockpm(unblock):
         replied_user = await unblock.client.get_entity(reply.from_id)
         name0 = str(replied_user.first_name)
         await unblock.client(UnblockRequest(replied_user.id))
-        await unblock.edit("`You have been unblocked.`")
+        await unblock.edit("`You has been unblocked.`")
 
     if BOTLOG:
         await unblock.client.send_message(
