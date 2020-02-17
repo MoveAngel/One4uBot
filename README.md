@@ -12,6 +12,7 @@
 <h2 align="center">Credits</h2>
 <p align="center">Huge thanks to <a href="https://github.com/MoveAngel/One4uBot/graphs/contributors">everyone</a> who have helped make this userbot awesome!!</p>
 <p align="center">A BIG thanks to <a href="https://github.com/Devp73">Dev Patel</a> who have helped make this userbot ON AGAIN with his HUGE FIX!!</p>
+<p align="center">Special Thanks to <a href="https://t.me/Three_Cube_TeKnoways">3Cube TeKnoways</a>, <a href="https://github.com/mkaraniya">Mayur Karaniya</a> and <a href="https://github.com/AvinashReddy3108">AvinnashReddy</a> for a great source</p>
 <p align="center">&nbsp;</p>
 <h2 align="center">Updates and Support</h2>
 <p align="center">Join our <a href="https://t.me/PaperplaneExtended_news">Telegram Channel</a> for update notifications!</p>
