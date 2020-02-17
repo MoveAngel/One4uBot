@@ -179,6 +179,10 @@ G_DRIVE_FOLDER_ID = os.environ.get("G_DRIVE_FOLDER_ID") or None
 TEMP_DOWNLOAD_DIRECTORY = os.environ.get(
     "TMP_DOWNLOAD_DIRECTORY") or "./downloads"
 
+# Uptobox
+USR_TOKEN = os.environ.get("USR_TOKEN_UPTOBOX", None)
+
+
 # Setting Up CloudMail.ru and MEGA.nz extractor binaries,
 # and giving them correct perms to work properly.
 if not os.path.exists("bin"):
