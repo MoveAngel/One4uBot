@@ -854,12 +854,12 @@ async def zal(zgfy):
             continue
 
         for _ in range(0, 3):
-            randint = randint(0, 2)
+            textz = randint(0, 2)
 
-            if randint == 0:
+            if textz == 0:
                 charac = charac.strip() + \
                     choice(ZALG_LIST[0]).strip()
-            elif randint == 1:
+            elif textz == 1:
                 charac = charac.strip() + \
                     choice(ZALG_LIST[1]).strip()
             else:
