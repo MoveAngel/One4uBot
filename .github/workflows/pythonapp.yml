@@ -1,4 +1,4 @@
-name: CheckBug
+name: FailedChecker
 
 on: [push, pull_request]
 
