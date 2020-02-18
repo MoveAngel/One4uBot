@@ -105,8 +105,8 @@ def encrypt_file(file_name, file_hex, file_raw_hex):
 
 CMD_HELP.update({
     "mega":
-    ".mega <mega url>\"
-    "\nUsage: Reply to a mega link or paste your mega link to"
-    "\ndownload the file into your userbot server"
-    "\n\nOnly support for *FILE* only."
+    ".mega <mega url>\n"
+    "Usage: Reply to a mega link or paste your mega link to\n"
+    "download the file into your userbot server\n\n"
+    "Only support for *FILE* only.\n"
 })
