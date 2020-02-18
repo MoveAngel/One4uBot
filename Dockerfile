@@ -10,7 +10,8 @@ RUN sed -e 's;^#http\(.*\)/edge/community;http\1/edge/community;g' -i /etc/apk/r
 # Installing Packages
 #
 RUN apk add --no-cache=true --update \
-        bash \
+    coreutils \
+    bash \
     build-base \
     bzip2-dev \
     curl \
@@ -54,8 +55,6 @@ RUN apk add --no-cache=true --update \
     zlib-dev \
     jpeg 
     
-  
-
 
 RUN python3 -m ensurepip \
     && pip3 install --upgrade pip setuptools \
