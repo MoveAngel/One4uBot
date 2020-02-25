@@ -72,6 +72,8 @@ UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 @register(outgoing=True, pattern="^.setgpic$")
 async def set_group_photo(gpic):
     """ For .setgpic command, changes the picture of a group """
+    await gpic.edit("`Processing...`")
+    await sleep(1)
     if not gpic.is_group:
         await gpic.edit("`I don't think this is a group.`")
         return
