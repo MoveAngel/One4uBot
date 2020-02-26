@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/circleci/circleci-docs.svg?style=svg)](https://circleci.com/gh/MoveAngel/One4uBot)
+[![Build](https://github.com/MoveAngel/One4uBot/workflows/FailedChecker/badge.svg?branch=sql-extended)](https://github.com/MoveAngel/One4uBot/actions "Build")
 <h1 align="center">Project One4uBot</h1>
 <h3 align="center">A modular Telegram userbot running on Python 3.8+ with an sqlalchemy database.</h3>
 <h4 align="center">Based on RaphielGang's <a href="https://github.com/RaphielGang/Telegram-UserBot">Paperplane</a> Telegram userbot...</h4>
