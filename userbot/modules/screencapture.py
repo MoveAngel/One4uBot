@@ -65,7 +65,7 @@ async def capture(url):
                                    caption=input_str,
                                    force_document=True,
                                    reply_to=message_id)
-
+        await url.delete()
 
 CMD_HELP.update({
     "ss":
