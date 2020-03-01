@@ -123,15 +123,15 @@ async def pipcheck(pip):
 async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
     await alive.edit("`안녕하세요🍭 `\n"
-                     "======================== \n"
                      "`My Detail Ubot `\n"
+                     "===================== \n"
                      f"`Telethon : v{version.__version__} `\n"
                      f"`Python : v{python_version()} `\n"
-	                 "======================== \n"
+	                 "===================== \n"
                      f"`User : `{DEFAULTUSER} \n"
-		             "======================== \n"
-                     "`좋은 하루 되세요💖 `\n")    
-
+		             "===================== \n\n"
+                     "`uBot Based` [Source](https://github.com/MoveAngel/One4uBot.git)\n"
+                     "`좋은 하루 되세요💖 `\n")
 
 
 @register(outgoing=True, pattern="^.aliveu")
