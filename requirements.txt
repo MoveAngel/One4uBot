@@ -20,6 +20,7 @@ heroku3
 httplib2==0.15.0
 humanize
 lxml
+lyricsgenius
 oauth2client
 Pillow>=5.3.0
 psycopg2
