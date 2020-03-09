@@ -989,11 +989,6 @@ async def iqless(e):
     await e.edit("♿")
 
 
-@register(outgoing=True, pattern="^.fuck$")
-async def iqless(e):
-    await e.edit("🖕🖕🖕🖕🖕🖕🖕🖕\n🖕🖕🖕🖕🖕🖕🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕🖕🖕🖕🖕\n🖕🖕🖕🖕🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕\n🖕🖕")
-
-
 @register(outgoing=True, pattern="^.moon$")
 async def moon(event):
     deq = deque(list("🌗🌘🌑🌒🌓🌔🌕🌖"))
@@ -1285,6 +1280,20 @@ async def taco(e):
                      "\n( >🌮 Want a taco?")
 
 
+@register(outgoing=True, pattern="^.sayhi$")
+async def sayhi(e):
+    await e.edit(
+        "\n💰💰💰💰💰💰💰💰💰💰💰💰"
+        "\n💰🔷💰💰💰🔷💰💰🔷🔷🔷💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷🔷🔷🔷🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
+        "\n💰🔷💰💰💰🔷💰💰🔷🔷🔷💰"
+        "\n💰💰💰💰💰💰💰💰💰💰💰💰")
+
+
 @register(outgoing=True, pattern="^.paw$")  
 async def paw(e):
    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -1407,6 +1416,6 @@ CMD_HELP.update({
 \n\nAnd many more\
 \n.nou ; .bot ; .gey ; .gey ; .tf ; .paw ; .taco ; .nih ;\
 \n.fag ; .gtfo ; .stfu ; .lol ; .lool ; .fail ; .leave\
-\n.love ; .rain ; .earth ; .fuck ; .iwi\
+\n.love ; .rain ; .earth ; .iwi ; .sayhi\
 \n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
 })
