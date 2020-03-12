@@ -1,4 +1,10 @@
-# Ported by MvAL
+# Copyright (C) 2019 The Raphielscape Company LLC.
+#
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
+# you may not use this file except in compliance with the License.
+#
+# Originally from Dark-Prin3 - X-Tra-Telegram
+# Port to UserBot by @MoveAngel
 
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon import events
