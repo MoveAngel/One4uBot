@@ -39,6 +39,14 @@
       "description": "Add the Heroku app name here. It helps with userbot updates.",
       "required": false
     },
+    "GITHUB_ACCESS_TOKEN": {
+      "description": "Your GITHUB_ACCESS_TOKEN, get it from 'https://github.com/settings/tokens'",
+      "value": ""
+    },
+    "GIT_REPO_NAME": {
+      "description": "Add the GIT_REPO_NAME here. It helps with commit on GitHub.",
+      "required": false
+    },
     "UPSTREAM_REPO_URL": {
       "description": "In case you maintain a fork, add your repo URL here.",
       "required": false
