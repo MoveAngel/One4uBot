@@ -81,7 +81,7 @@
     },
     "GENIUS_API_TOKEN": {
       "description": "Get your own api token from https://genius.com/developers",
-      "required": true
+      "required": false
     },
     "BOTLOG": {
       "description": "Incase you want to turn off logging, put this to false",
