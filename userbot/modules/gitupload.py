@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # Ported to UserBot by @Mayur_Karaniya
 
-# import github
+from github import Github
 import aiohttp
 import asyncio
 import os
@@ -16,12 +16,13 @@ from telethon.tl.types import DocumentAttributeVideo
 # from uniborg.util import admin_cmd, humanbytes, progress, time_formatter
 from userbot.events import register
 # from userbot.events import humanbytes, progress, time_formatter
-from userbot import CMD_HELP, GITHUB_ACCESS_TOKEN, GIT_REPO_NAME
+from userbot import CMD_HELP, GITHUB_ACCESS_TOKEN, GIT_REPO_NAME, bot
 
 
 GIT_TEMP_DIR = "./userbot/temp/"
 # @borg.on(admin_cmd(pattern="commit ?(.*)", allow_sudo=True))
-@register(pattern=r".commit (.*)", outgoing=True)
+@register(outgoing=True, pattern="^.commit(?: |$)(.*)")
+# @register(pattern=r".commit (.*)", outgoing=True)
 async def download(event):
     if event.fwd_from:
         return	
@@ -92,5 +93,5 @@ CMD_HELP.update({
     "commit": 
     ".commit\
     \nUsage: GITHUB File Uploader Plugin for userbot. Heroku Automation should be Enabled. Else u r not that lazy , For lazy people\
-    \nInstructions:- Set GITHUB_ACCESS_TOKEN and GIT_REPO_NAME Variables in Heroku vars First\
-    \n.commit reply_to_any_plugin can be any type of file too. but for plugin must be in .py ."})
+\nInstructions:- Set GITHUB_ACCESS_TOKEN and GIT_REPO_NAME Variables in Heroku vars First\
+\n.commit reply_to_any_plugin can be any type of file too. but for plugin must be in .py ."})
