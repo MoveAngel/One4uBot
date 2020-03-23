@@ -53,7 +53,13 @@ RUN apk add --no-cache=true --update \
     chromium \
     chromium-chromedriver \
     zlib-dev \
-    jpeg 
+    jpeg \
+    zip \
+    megatools \
+    nodejs
+
+
+RUN curl https://cli-assets.heroku.com/install.sh | sh
     
 
 RUN python3 -m ensurepip \
