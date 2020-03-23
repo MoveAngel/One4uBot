@@ -983,7 +983,7 @@ async def pressf(f):
     args = f.text.split()
     arg = (f.text.split(' ', 1))[1] if len(args) > 1 else None
     if len(args) == 1:
-        r = random.randint(0, 3)
+        r = randint(0, 3)
         LOGS.info(r)
         if r == 0:
             await f.edit("┏━━━┓\n┃┏━━┛\n┃┗━━┓\n┃┏━━┛\n┃┃\n┗┛")
