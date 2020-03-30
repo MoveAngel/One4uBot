@@ -61,9 +61,6 @@ RUN apk add --no-cache=true --update \
     freetype-dev
 
 
-RUN curl https://cli-assets.heroku.com/install.sh | sh
-    
-
 RUN python3 -m ensurepip \
     && pip3 install --upgrade pip setuptools \
     && rm -r /usr/lib/python*/ensurepip && \
