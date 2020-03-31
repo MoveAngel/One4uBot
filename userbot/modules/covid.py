@@ -12,7 +12,7 @@ from userbot.events import register
 
 @register(outgoing=True, pattern="^.covid (.*)")
 async def corona(event):
-    await event.edit("Processing...")
+    await event.edit("`Processing...`")
     country = event.pattern_match.group(1)
     covid = Covid()
     country_data = covid.get_status_by_country_name(country)
