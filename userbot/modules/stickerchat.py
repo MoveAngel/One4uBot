@@ -26,15 +26,15 @@ if 1 == 1:
         "api_url_cfg_doc": "API URL for Quotes.",
         "colors_cfg_doc": "Username colors",
         "default_username_color_cfg_doc": "Default color for the username.",
-        "no_reply": "<b>You didn't reply to a message.</b>",
-        "no_template": "<b>You didn't specify the template.</b>",
+        "no_reply": "You didn't reply to a message.",
+        "no_template": "You didn't specify the template.",
         "delimiter": "</code>, <code>",
-        "server_error": "<b>Server error. Please report to developer.</b>",
-        "invalid_token": "<b>You've set an invalid token, get it from `http://antiddos.systems`.</b>",
-        "unauthorized": "<b>You're unauthorized to do this.</b>",
-        "not_enough_permissions": "<b>Wrong template. You can use only the default one.</b>",
-        "templates": "<b>Available Templates:</b> <code>{}</code>",
-        "cannot_send_stickers": "<b>You cannot send stickers in this chat.</b>",
+        "server_error": "Server error. Please report to developer.",
+        "invalid_token": "You've set an invalid token, get it from `http://antiddos.systems`.",
+        "unauthorized": "You're unauthorized to do this.",
+        "not_enough_permissions": "Wrong template. You can use only the default one.",
+        "templates": "Available Templates: <code>{}</code>",
+        "cannot_send_stickers": "You cannot send stickers in this chat.",
         "admin": "admin",
         "creator": "creator",
         "hidden": "hidden",
@@ -51,17 +51,20 @@ if 1 == 1:
         """Quote a message.
         Usage: .pch [template]
         If template is missing, possible templates are fetched."""
-        await message.delete()
+        if QUOTES_API_TOKEN is None:
+            await message.edit("Provide QUOTES_API_TOKEN from http://antiddos.systems/login in config.py or heroku vars first!!")
+            return
+        await message.edit("`Processing...`")
         args = message.raw_text.split(" ")[1:]
         if args == []:
             args = ["default"]
         reply = await message.get_reply_message()
 
         if not reply:
-            return await message.respond(strings["no_reply"])
+            return await message.edit(strings["no_reply"])
 
         if not args:
-            return await message.respond(strings["no_template"])
+            return await message.edit(strings["no_template"])
 
         username_color = username = admintitle = user_id = None
         profile_photo_url = reply.from_id
@@ -130,15 +133,15 @@ if 1 == 1:
         resp = resp.json()
 
         if resp["status"] == 500:
-            return await message.respond(strings["server_error"])
+            return await message.edit(strings["server_error"])
         elif resp["status"] == 401:
             if resp["message"] == "ERROR_TOKEN_INVALID":
-                return await message.respond(strings["invalid_token"])
+                return await message.edit(strings["invalid_token"])
             else:
                 raise ValueError("Invalid response from server", resp)
         elif resp["status"] == 403:
             if resp["message"] == "ERROR_UNAUTHORIZED":
-                return await message.respond(strings["unauthorized"])
+                return await message.edit(strings["unauthorized"])
             else:
                 raise ValueError("Invalid response from server", resp)
         elif resp["status"] == 404:
@@ -149,12 +152,12 @@ if 1 == 1:
                 newreq = newreq.json()
 
                 if newreq["status"] == "NOT_ENOUGH_PERMISSIONS":
-                    return await message.respond(strings["not_enough_permissions"])
+                    return await message.edit(strings["not_enough_permissions"])
                 elif newreq["status"] == "SUCCESS":
                     templates = strings["delimiter"].join(newreq["message"])
-                    return await message.respond(strings["templates"].format(templates))
+                    return await message.edit(strings["templates"].format(templates))
                 elif newreq["status"] == "INVALID_TOKEN":
-                    return await message.respond(strings["invalid_token"])
+                    return await message.edit(strings["invalid_token"])
                 else:
                     raise ValueError("Invalid response from server", newreq)
             else:
@@ -173,9 +176,10 @@ if 1 == 1:
             sticker.name = "sticker.webp"
             sticker.seek(0)
             try:
+                await message.delete()
                 await reply.reply(file=sticker)
             except telethon.errors.rpcerrorlist.ChatSendStickersForbiddenError:
-                await message.respond(strings["cannot_send_stickers"])
+                await message.edit(strings["cannot_send_stickers"])
             file.close()
 
 
