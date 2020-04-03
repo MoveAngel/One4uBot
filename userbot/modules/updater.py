@@ -84,12 +84,6 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
             return repo.__del__()
         await event.edit('`Successfully Updated!\n'
                          'Restarting, please wait...`')
-
-        if BOTLOG:
-            await event.client.send_message(
-                BOTLOG_CHATID, "#UPDATE \n"
-                "Your One4uBot was successfully updated")
-
     else:
         await event.edit('`[HEROKU]:'
                          '\nPlease set up` **HEROKU_API_KEY** `variable.`'
@@ -105,12 +99,6 @@ async def update(event, repo, ups_rem, ac_br):
     await update_requirements()
     await event.edit('`Successfully Updated!\n'
                      'Bot is restarting... Wait for a second!`')
-
-    if BOTLOG:
-            await event.client.send_message(
-                BOTLOG_CHATID, "#UPDATE \n"
-                "Your One4uBot was successfully updated")
-
     # Spin a new instance of bot
     args = [sys.executable, "-m", "userbot"]
     execle(sys.executable, *args, environ)
