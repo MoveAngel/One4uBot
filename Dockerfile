@@ -20,7 +20,6 @@ RUN apk add --no-cache=true --update \
     gcc \
     g++ \
     git \
-    sudo \
     aria2 \
     util-linux \
     libevent \
@@ -42,8 +41,6 @@ RUN apk add --no-cache=true --update \
     pv \
     jq \
     wget \
-    python \
-    python-dev \
     python3 \
     python3-dev \
     readline-dev \
