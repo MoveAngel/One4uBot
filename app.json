@@ -127,6 +127,10 @@
       "description": "Download location for many modules (GDrive, .download etc..)",
       "value": "./downloads/"
     },
+    "USER_TERM_ALIAS": {
+      "description": "Set alias name of user for term bash command",
+      "required": false
+    },
     "QUOTES_API_TOKEN": {
       "description": "Enhance ur text to sticker. Get your own API token from http://antiddos.systems.",
       "required": false
