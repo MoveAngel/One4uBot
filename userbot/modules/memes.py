@@ -1299,18 +1299,6 @@ async def sayhi(e):
         "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
         "\n💰🔷💰💰💰🔷💰💰🔷🔷🔷💰"
         "\n💰💰💰💰💰💰💰💰💰💰💰💰")
-
-
-@register(outgoing=True, pattern="^.paw$")  
-async def paw(e):
-   if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await e.edit("`(=ↀωↀ=)")
-
-
-@register(outgoing=True, pattern="^.tf$")  
-async def tf(e):
-   if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await e.edit("(̿▀̿ ̿Ĺ̯̿̿▀̿ ̿)̄  ")  
        
                   
 @register(outgoing=True, pattern="^.gey$")            
