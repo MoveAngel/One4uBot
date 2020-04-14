@@ -30,7 +30,7 @@ async def _(event):
              await event.edit("```I think this is not the right link```")
           else: 
              await event.delete()   
-             await bot.forward_messages(event.chat_id, response.message)
+             await bot.send_message(event.chat_id, response.message)
 
 CMD_HELP.update({
     "nhentai": 
