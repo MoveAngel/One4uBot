@@ -248,7 +248,7 @@ async def download(gdrive, service, uri=None):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
         required_file_name = None
     if uri:
-        if ".torrent" in uri:
+        if isfile(uri) and uri.endswith(".torrent"):
             downloads = aria2.add_torrent(uri,
                                           uris=None,
                                           options=None,
@@ -300,7 +300,8 @@ async def download(gdrive, service, uri=None):
                 f" • `Name     :` `{file_name}`\n"
                 " • `Status   :` **OK**\n"
                 f" • `URL      :` [{file_name}]({result[0]})\n"
-                f" • `Download :` [{file_name}]({result[1]})"
+                f" • `Download :` [{file_name}]({result[1]})",
+                link_preview=False
             )
         else:
             status = status.replace("[FILE", "[FOLDER")
@@ -666,10 +667,11 @@ async def google_drive(gdrive):
             except Exception as e:
                 """ - If cancelled, cancel all download queue - """
                 if " not found" in str(e) or "'file'" in str(e):
-                    return await gdrive.edit("`Cancelled download...`")
+                    await asyncio.sleep(2.5)
+                    return await gdrive.delete()
                 """ - if something bad happened, continue to next uri - """
                 continue
-        return
+        return await gdrive.delete()
     mimeType = await get_mimeType(file_path)
     file_name = await get_raw_name(file_path)
     viewURL, downloadURL = await upload(
@@ -813,19 +815,7 @@ async def check_progress_for_dl(gdrive, gid, previous):
                                          "Successfully downloaded,\n"
                                          "Initializing upload...")
         except Exception as e:
-            if " not found" in str(e) or "'file'" in str(e):
-                try:
-                    await gdrive.edit(
-                         "`[URI - DOWNLOAD]`\n\n"
-                         f" • `Name   :` `{file.name}`\n"
-                         " • `Status :` **OK**\n"
-                         " • `Reason :` Download cancelled."
-                    )
-                except Exception:
-                    pass
-                await asyncio.sleep(2.5)
-                return await gdrive.delete()
-            elif " depth exceeded" in str(e):
+            if " depth exceeded" in str(e):
                 file.remove(force=True)
                 try:
                     await gdrive.edit(
