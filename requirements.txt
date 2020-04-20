@@ -6,6 +6,7 @@ cowpy
 cffi>=1.0.0
 coffeehouse
 covid
+cryptg
 dnspython
 emoji
 gitpython
@@ -18,7 +19,7 @@ gTTS>=2.0.1
 gTTS-token>=1.1.3
 hachoir>=3.0a5
 # heroku
-heroku3>=3.4.0
+heroku3>=3.4.0	
 httplib2
 humanize
 lxml
