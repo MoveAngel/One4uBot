@@ -83,8 +83,8 @@
       "description": "Get your own APPID (API key)from https://api.openweathermap.org/data/2.5/weather",
       "required": false
     },
-    "GENIUS_API_TOKEN": {
-      "description": "Get your own api token from https://genius.com/developers",
+    "GENIUS_ACCESS_TOKEN": {
+      "description": "Client Access Token from https://genius.com/api-clients.",
       "required": false
     },
     "BOTLOG": {
