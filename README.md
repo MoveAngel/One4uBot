@@ -36,13 +36,14 @@ For discussion, bug reporting, and help, you can join [Userbotindo Support Group
 
 ## Credits
 
-• [RaphielGang](https://github.com/RaphielGang)
-• [AvinashReddy3108](https://github.com/AvinashReddy3108)
-• [kandnub](https://github.com/kandnub)
-• [AdekMaulana](https://github.com/adekmaulana)
-• [Mr.Miss](https://github.com/keselekpermen69)
-• [Mkaraniya](https://github.com/mkaraniya)
-• [DevPatel](https://github.com/Devp73)
+Thanks for all : 
+* [RaphielGang](https://github.com/RaphielGang) - Telegram-Paperplane
+* [AvinashReddy3108](https://github.com/AvinashReddy3108) - PaperplaneExtended
+* [kandnub](https://github.com/kandnub) - TG-UserBot
+* [AdekMaulana](https://github.com/adekmaulana) - ProjectBish
+* [Mr.Miss](https://github.com/keselekpermen69) - Userbutt
+* [Mkaraniya](https://github.com/mkaraniya) - OpenUserBot
+* [DevPatel](https://github.com/Devp73) - OpenUserBot
 
 and many more people who aren't mentioned here, but may be found in [Contributors](https://github.com/MoveAngel/One4uBot/graphs/contributors).
 
