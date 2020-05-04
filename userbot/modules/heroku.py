@@ -184,7 +184,7 @@ async def dyno_usage(dyno):
                            f" -> `Dyno usage for`  **{app.name}**:\n"
                            f"     •  `{AppHours}`**h**  `{AppMinutes}`**m**  "
                            f"**|**  [`{AppPercentage}`**%**]"
-                           "\n\n-----------------------------------------------------------\n\n"
+                           "\n-------------------------------------------------------------\n"
                            " -> `Dyno hours quota remaining this month`:\n"
                            f"     •  `{hours}`**h**  `{minutes}`**m**  "
                            f"**|**  [`{percentage}`**%**]"
