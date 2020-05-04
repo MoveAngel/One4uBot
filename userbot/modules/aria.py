@@ -3,11 +3,14 @@
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");
 # you may not use this file except in compliance with the License.
 
+import os
 import aria2p
+import math
 from asyncio import sleep
 from subprocess import PIPE, Popen
-from userbot import LOGS, CMD_HELP
+from userbot import LOGS, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
+from userbot.modules.upload_download import humanbytes
 from requests import get
 
 
@@ -43,10 +46,15 @@ cmd = f"aria2c \
 --daemon=true \
 --allow-overwrite=true"
 
-aria2_is_running = subprocess_run(cmd)
+subprocess_run(cmd)
+if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+    os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip('.')
 
 aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=6800,
                                  secret=""))
+
+aria2.set_global_options({'dir': download_path})
 
 
 @register(outgoing=True, pattern="^.amag(?: |$)(.*)")
@@ -177,12 +185,21 @@ async def check_progress_for_dl(gid, event, previous):
         complete = file.is_complete
         try:
             if not complete and not file.error_message:
-                msg = f"\nDownloading File Name:\n`{file.name}`\n\n"
-                msg += f"`Status`\n**{file.status.capitalize()}**\n"
-                msg += f"`Speed      :` {file.download_speed_string()}\n"
-                msg += f"`Progress   :` {file.progress_string()}\n"
-                msg += f"`Total Size :` {file.total_length_string()}\n"
-                msg += f"`ETA        :` {file.eta_string()}\n"
+                percentage = int(file.progress)
+                downloaded = percentage * int(file.total_length) / 100
+                prog_str = "`Downloading` | [{0}{1}] `{2}`".format(
+                    "".join(["**#**" for i in range(math.floor(percentage / 5))]),
+                    "".join(["**--**"
+                             for i in range(20 - math.floor(percentage / 5))]),
+                    file.progress_string())
+                msg = (
+                    f"`Name`: `{file.name}`\n"
+                    f"`Status` -> **{file.status.capitalize()}**\n"
+                    f"{prog_str}\n"
+                    f"`{humanbytes(downloaded)} of {file.total_length_string()}"
+                    f" @ {file.download_speed_string()}`\n"
+                    f"`ETA` -> {file.eta_string()}\n"
+                )
                 if msg != previous:
                     await event.edit(msg)
                     msg = previous
@@ -193,8 +210,12 @@ async def check_progress_for_dl(gid, event, previous):
             file = aria2.get_download(gid)
             complete = file.is_complete
             if complete:
-                return await event.edit(f"`{file.name}`\n\n"
-                                        "Successfully downloaded...")
+                return await event.edit(
+                    f"`Name`: `{file.name}`\n"
+                    f"`Size`: `{file.total_length_string()}`\n"
+                    f"`Path`: `{TEMP_DOWNLOAD_DIRECTORY + file.name}`\n"
+                    "`Response`: **OK** - Successfully downloaded..."
+                )
         except Exception as e:
             if " not found" in str(e) or "'file'" in str(e):
                 await event.edit("Download Canceled :\n`{}`".format(file.name))
