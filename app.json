@@ -1,11 +1,11 @@
 {
-  "name": "Project Bish UserBot fallback",
-  "description": "[projectbish] A modular Telegram userbot running on Python 3.8, this is a fallback for main userbot.",
+  "name": "One4uBot Userbot Fallback Project",
+  "description": "[One4uBot] A modular Telegram userbot running on Python 3.8, this is a fallback for main userbot.",
   "keywords": [
     "telegram",
     "userbot"
   ],
-  "repository": "https://github.com/adekmaulana/ProjectBish",
+  "repository": "https://github.com/MoveAngel/One4uBot",
   "stack": "container",
   "env": {
     "API_KEY": {
@@ -41,17 +41,17 @@
     },
     "UPSTREAM_REPO_URL": {
       "description": "Your forked repo.",
-      "value": "https://github.com/adekmaulana/ProjectBish",
+      "value": "https://github.com/MoveAngel/One4uBot",
       "required": true
     },
     "MAIN_REPO_BRANCH": {
       "description": "Your main branch repo.",
-      "value": "experimental",
+      "value": "sql-extended",
       "required": true
     },
     "UPSTREAM_REPO_BRANCH": {
       "description": "Your forked repo branch.",
-      "value": "master-fallback",
+      "value": "fallback",
       "required": true
     },
     "BOTLOG": {

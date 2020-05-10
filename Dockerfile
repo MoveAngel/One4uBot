@@ -36,8 +36,8 @@ RUN pip3 install heroku3 telethon gitpython && rm -r /root/.cache
 #
 # Clone repo and prepare working directory
 #
-RUN git clone -b master-fallback https://github.com/adekmaulana/ProjectBish /home/projectbish/
-WORKDIR /home/projectbish/
+RUN git clone -b fallback https://github.com/MoveAngel/One4uBot /home/One4uBot/
+WORKDIR /home/One4uBot/
 
 #
 # Install requirements

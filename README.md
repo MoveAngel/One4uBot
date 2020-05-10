@@ -1,8 +1,46 @@
-<h1 align="center">ProjectBish UserBot Fallback</h1>
-<h5 align="center">This is a fallback for <a href="https://github.com/adekmaulana/ProjectBish/tree/master">main branch</a>.
-<h2 align="center">How To Host</h2>
-<h5 align="center">The easiest way to deploy this derpfest! is click on the image below</h5>
-<p align="center"><a href="https://heroku.com/deploy?template=https://github.com/adekmaulana/ProjectBish/tree/master-fallback"> <img src="https://camo.githubusercontent.com/83b0e95b38892b49184e07ad572c94c8038323fb/68747470733a2f2f7777772e6865726f6b7563646e2e636f6d2f6465706c6f792f627574746f6e2e737667" alt="Deploy to Heroku" /></a></p>
-<p align="center">&nbsp;</p>
-<h2 align="center">License</h2>
-<p align="center"><a href="https://github.com/adekmaulana/ProjectBish/blob/master/LICENSE">Raphielscape Public License</a> - Version 1.c, June 2019</p>
+# One4uBot Userbot Fallback Project
+
+![logo](https://telegra.ph/file/9b329a3aeaf87c92c4811.jpg)
+
+```
+#include <std/disclaimer.h>
+/**
+    Your Telegram account may get banned.
+    I am not responsible for any improper use of this bot
+    This bot is intended for the purpose of having fun with memes,
+    as well as efficiently managing groups.
+    You ended up spamming groups, getting reported left and right,
+    and you ended up in a Finale Battle with Telegram and at the end
+    Telegram Team deleted your account?
+    And after that, then you pointed your fingers at us
+    for getting your acoount deleted?
+    I will be rolling on the floor laughing at you.
+/**
+```
+
+## How To Host?
+
+The easiest way to deploy this great bot! is click on button below
+Make sure you have an account of heroku and follow all the steps required.
+
+Deploy to Heroku:
+<p align="left"><a href="https://heroku.com/deploy?template=https://github.com/MoveAngel/One4uBot/tree/fallback"> <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" /></a></p>
+
+## Groups and support
+
+if you want new features, or announcements, you can follow our [UserbotIndo Channel](https://t.me/userbotindocloud).
+
+For discussion, bug reporting, and help, you can join [Userbotindo Support Group](https://t.me/userbotindo).
+
+## Credits
+
+Thanks for all : 
+* [RaphielGang](https://github.com/RaphielGang) - Telegram-Paperplane
+* [AdekMaulana](https://github.com/adekmaulana) - ProjectBish
+* [Mr.Miss](https://github.com/keselekpermen69) - Userbutt
+
+and many more people who aren't mentioned here, but may be found in [Contributors](https://github.com/MoveAngel/One4uBot/graphs/contributors).
+
+## License
+
+This userbot licensed on [Raphielscape Public License](https://github.com/MoveAngel/One4uBot/blob/sql-extended/LICENSE) - Version 1.d, February 2020
