@@ -1296,6 +1296,8 @@ CMD_HELP.update({
     "\n\n.gd"
     "\nUsage: Upload file from local or uri/url/drivelink into google drive."
     "\nfor drivelink it's upload only if you want to."
+    "\n\n.gdabort"
+    "\nUsage: Abort process uploading or downloading."
     "\n\n.gdlist"
     "\nUsage: Get list of folders and files with default size 50."
     "\nUse flags `-l range[1-1000]` for limit output."
