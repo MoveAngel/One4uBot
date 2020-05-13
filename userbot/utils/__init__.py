@@ -4,6 +4,7 @@
 # you may not use this file except in compliance with the License.
 #
 
+from .chrome import chrome, options
 from .progress import progress
 
 from .tools import (
