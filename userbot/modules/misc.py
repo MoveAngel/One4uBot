@@ -90,10 +90,10 @@ async def bot_support(wannahelp):
 
 @register(outgoing=True, pattern="^.creator$")
 async def creator(ereee):
-    await ereee.edit(
     """ See who create this userbot. """
+    await ereee.edit(
         "Creator of this userbot:"
-        "\n• [MoveAngel](https://github.com/MoveAngel)")
+        "\n• 💘 [MoveAngel](https://github.com/MoveAngel) 💘")
 
 
 @register(outgoing=True, pattern="^.readme$")
