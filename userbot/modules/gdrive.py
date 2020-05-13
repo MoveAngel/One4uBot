@@ -40,7 +40,7 @@ from userbot import (
     G_DRIVE_FOLDER_ID, BOTLOG_CHATID, TEMP_DOWNLOAD_DIRECTORY, CMD_HELP, LOGS,
 )
 from userbot.events import register
-from userbot.modules.upload_download import humanbytes, time_formatter
+from userbot.utils import progress, humanbytes, time_formatter, human_to_bytes
 from userbot.utils.exceptions import CancelProcess
 from userbot.modules.aria import aria2, check_metadata
 # =========================================================== #
