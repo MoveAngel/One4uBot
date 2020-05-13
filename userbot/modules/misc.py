@@ -75,7 +75,7 @@ async def killdabot(event):
 async def bot_community(community):
     """ For .community command, just returns OG Paperplane's group link. """
     await community.edit(
-        "Join RaphielGang's awesome userbot community: @userbot_support"
+        "Join RaphielGang's awesome userbot community: @tgpaperplane"
         "\nDo note that Paperplane Extended is an unoficial fork of their "
         "Paperplane project and it may get limited or no support for bugs.")
 
@@ -84,16 +84,16 @@ async def bot_community(community):
 async def bot_support(wannahelp):
     """ For .support command, just returns the group link. """
     await wannahelp.edit(
-        "Join the OpenUserBot Channel: @PaperPlaneExtended_news \
-        \nJoin the Community Userbot Indo Chat: @userbotindo")
+        "Join Our UserbotIndo Channel: @userbotindocloud \
+        \nJoin Userbot Indo Support Group: @userbotindo")
 
-@register(outgoing=True, pattern="^.contributor$")
-async def contributor(e):
-    await e.edit("[MoveAngel](https://t.me/MoveAngel)")
 
 @register(outgoing=True, pattern="^.creator$")
-async def creator(e):
-    await e.edit("[TeKnoways](https://t.me/Three_Cube_TeKnoways)")
+async def creator(ereee):
+    await ereee.edit(
+    """ See who create this userbot. """
+        "Creator of this userbot:"
+        "\n• [MoveAngel](https://github.com/MoveAngel)")
 
 
 @register(outgoing=True, pattern="^.readme$")
