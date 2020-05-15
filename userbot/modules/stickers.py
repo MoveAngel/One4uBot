@@ -309,6 +309,28 @@ async def get_pack_info(event):
     await event.edit(OUTPUT)
 
 
+@register(outgoing=True, pattern="^.getsticker$")
+async def sticker_to_png(sticker):
+    if not sticker.is_reply:
+        await sticker.edit("`NULL information to feftch...`")
+        return False
+
+    img = await sticker.get_reply_message()
+    if not img.document:
+        await sticker.edit("`Reply to a sticker...`")
+        return False
+
+    await sticker.edit("`Converting...`")
+    image = io.BytesIO()
+    await sticker.client.download_media(img, image)
+    image.name = 'sticker.png'
+    image.seek(0)
+    await sticker.client.send_file(
+        sticker.chat_id, image, reply_to=img.id, force_document=True)
+    await sticker.delete()
+    return
+
+
 CMD_HELP.update({
     "stickers":
     ".kang\
@@ -320,5 +342,7 @@ CMD_HELP.update({
 \n\n.kang [emoji('s)] [number]\
 \nUsage: Kang's the sticker/image to the specified pack and uses the emoji('s) you picked.\
 \n\n.stkrinfo\
-\nUsage: Gets info about the sticker pack."
+\nUsage: Gets info about the sticker pack.\
+\n\n.getsticker\
+\nUsage: reply to a sticker to get 'PNG' file of sticker."
 })
