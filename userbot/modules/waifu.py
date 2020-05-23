@@ -1,3 +1,8 @@
+# Copyright (C) 2020 The Raphielscape Company LLC.
+#
+# Licensed under the Raphielscape Public License, Version 1.d (the "License");
+# you may not use this file except in compliance with the License.
+#
 # Imported from ppe-remix
 
 import re
@@ -46,7 +51,8 @@ async def waifu(animu):
 
 
 CMD_HELP.update({
-    "waifu":
-    ">`.waifu`"
-    "\nUsage: To stickerize your text with beautiful anime girl templates."
-})
+        "waifu": 
+        ".waifu \
+          \nUsage: Enchance your text with beautiful anime girl templates. \
+          \n@StickerizerBot"
+    })
