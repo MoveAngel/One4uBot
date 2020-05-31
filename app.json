@@ -177,6 +177,10 @@
       "description": "Name to show in .alive message",
       "required": false
     },
+    "ALIVE_LOGO": {
+      "description": "Show Image/Logo in .alive message",
+      "required": false
+    },
     "G_DRIVE_CLIENT_SECRET": {
       "description": "Enter Your Client Secret for Google Drive.",
       "required": false
