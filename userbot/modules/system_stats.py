@@ -12,7 +12,7 @@ from shutil import which
 from os import remove
 from telethon import version
 
-from userbot import CMD_HELP, ALIVE_NAME
+from userbot import CMD_HELP, ALIVE_NAME, UPSTREAM_REPO_BRANCH
 from userbot.events import register
 
 # ================= CONSTANT =================
@@ -136,7 +136,8 @@ async def amireallyalive(alive):
                      f"> `Python : v{python_version()} `\n"
 	                 "===================== \n"
                      f"`User : `{DEFAULTUSER} \n"
-		             "===================== \n")
+		             "===================== \n"
+                     f"__Running on {UPSTREAM_REPO_BRANCH}__ \n")
 
 
 @register(outgoing=True, pattern="^.aliveu")
