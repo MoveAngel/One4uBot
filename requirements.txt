@@ -8,6 +8,7 @@ coffeehouse
 covid
 cryptg
 dnspython
+deezloader
 emoji
 gitpython
 google-api-python-client

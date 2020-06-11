@@ -87,6 +87,11 @@
       "description": "Incase you want to turn off logging, put this to false",
       "value": "False"
     },
+    "DEEZER_ARL_TOKEN": {
+      "description": "Fill of your Deezer ARL token. Get from https://notabug.org/RemixDevs/DeezloaderRemix/wiki/Login+via+userToken",
+      "required": false,
+      "value": ""
+    },
     "BOTLOG_CHATID": {
       "description": "ChatID of the Log group. Set it to '0' if BOTLOG = False and/or if LOGSPAMMER = False.",
       "value": "0"
