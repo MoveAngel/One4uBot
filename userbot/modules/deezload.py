@@ -27,11 +27,12 @@ async def _(event):
  
     strings = {
         "name": "DeezLoad",
-        "arl_token_cfg_doc": "`ARL Token for Deezer`",
-        "invalid_arl_token": "`Please set the required variables for this module`",
-        "wrong_cmd_syntax": "`Bruh, now i think how far should we go. please terminate my Session 🥺`",
-        "server_error": "`We're experiencing technical difficulties.`",
-        "processing": "`Downloading..`"
+        "arl_token_cfg_doc": "ARL Token for Deezer",
+        "invalid_arl_token": "please set the required variables for this module",
+        "wrong_cmd_syntax": "bruh, now i think how far should we go. please terminate my Session 🥺",
+        "server_error": "We're experiencing technical difficulties.",
+        "processing": "`Downloading...`",
+        "uploading": "`Uploading...`"
     }
  
     ARL_TOKEN = DEEZER_ARL_TOKEN
@@ -65,6 +66,7 @@ async def _(event):
                 recursive_download=True,
                 not_interface=True
             )
+            await event.edit(strings["uploading"])
             await upload_track(required_track, event)
             shutil.rmtree(temp_dl_path)
             await event.delete()
@@ -80,6 +82,7 @@ async def _(event):
                 zips=False
             )
             for required_track in reqd_albums:
+                await event.edit(strings["uploading"])
                 await upload_track(required_track, event)
             shutil.rmtree(temp_dl_path)
             await event.delete()
@@ -94,6 +97,7 @@ async def _(event):
                 recursive_download=True,
                 not_interface=True
             )
+            await event.edit(strings["uploading"])
             await upload_track(required_track, event)
             shutil.rmtree(temp_dl_path)
             await event.delete()
@@ -109,6 +113,7 @@ async def _(event):
                 zips=False
             )
             for required_track in reqd_albums:
+                await event.edit(strings["uploading"])
                 await upload_track(required_track, event)
             shutil.rmtree(temp_dl_path)
             await event.delete()
@@ -153,7 +158,7 @@ async def upload_track(track_location, message):
  
 CMD_HELP.update({
     "deezload":
-        ".deez <spotify/deezer link> **Format Music**"
-        "\nUsage: Download music from deezer or spotify."
+        ".deez <spotify/deezer link> <Format>"
+        "\nUsage: Download music from deezer."
+        "\n\n *Format= `FLAC`, `MP3_320`, `MP3_256`, `MP3_128`."
 })
- 
