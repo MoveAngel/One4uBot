@@ -620,39 +620,31 @@ async def download_video(v_url):
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
-        await v_url.edit(f"`{str(DE)}`")
-        return
+        return await v_url.edit(f"`{str(DE)}`")
     except ContentTooShortError:
-        await v_url.edit("`The download content was too short.`")
-        return
+        return await v_url.edit("`The download content was too short.`")
     except GeoRestrictedError:
-        await v_url.edit(
-            "`Video is not available from your geographic location due to geographic restrictions imposed by a website.`"
+        return await v_url.edit(
+            "`Video is not available from your geographic location "
+            "due to geographic restrictions imposed by a website.`"
         )
-        return
     except MaxDownloadsReached:
-        await v_url.edit("`Max-downloads limit has been reached.`")
-        return
+        return await v_url.edit("`Max-downloads limit has been reached.`")
     except PostProcessingError:
-        await v_url.edit("`There was an error during post processing.`")
-        return
+        return await v_url.edit("`There was an error during post processing.`")
     except UnavailableVideoError:
-        await v_url.edit("`Media is not available in the requested format.`")
-        return
+        return await v_url.edit("`Media is not available in the requested format.`")
     except XAttrMetadataError as XAME:
-        await v_url.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
-        return
+        return await v_url.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
     except ExtractorError:
-        await v_url.edit("`There was an error during info extraction.`")
-        return
+        return await v_url.edit("`There was an error during info extraction.`")
     except Exception as e:
-        await v_url.edit(f"{str(type(e)): {str(e)}}")
-        return
+        return await v_url.edit(f"{str(type(e)): {str(e)}}")
     c_time = time.time()
     if song:
-        await v_url.edit(f"`Preparing to upload song:`\
-        \n**{rip_data['title']}**\
-        \nby *{rip_data['uploader']}*")
+        await v_url.edit(
+            f"`Preparing to upload song:`\n**{rip_data['title']}**"
+            "\nby *{rip_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp3",
@@ -669,9 +661,9 @@ async def download_video(v_url):
         os.remove(f"{rip_data['id']}.mp3")
         await v_url.delete()
     elif video:
-        await v_url.edit(f"`Preparing to upload video:`\
-        \n**{rip_data['title']}**\
-        \nby *{rip_data['uploader']}*")
+        await v_url.edit(
+            f"`Preparing to upload video:`\n**{rip_data['title']}**"
+            "\nby *{rip_data['uploader']}*")
         await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp4",
@@ -683,11 +675,6 @@ async def download_video(v_url):
                          f"{rip_data['title']}.mp4")))
         os.remove(f"{rip_data['id']}.mp4")
         await v_url.delete()
-
-
-def deEmojify(inputString):
-    """ Remove emojis and other non-safe characters from string """
-    return get_emoji_regexp().sub(u'', inputString)
 
 
 @register(outgoing=True, pattern="^.netease(?: |$)(.*)")
@@ -772,6 +759,11 @@ async def SpoMusDown(TifyDown):
     await TifyDown.client.delete_messages(conv.chat_id,
                                        [msg.id, r.id, respond.id])
     await TifyDown.delete()
+
+
+def deEmojify(inputString):
+    """ Remove emojis and other non-safe characters from string """
+    return get_emoji_regexp().sub(u'', inputString)
 
 
 CMD_HELP.update({
