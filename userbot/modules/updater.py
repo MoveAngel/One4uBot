@@ -51,7 +51,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
         heroku_applications = heroku.apps()
         if HEROKU_APP_NAME is None:
             await event.edit(
-                '`[HEROKU]: Please set up the` **HEROKU_APP_NAME** `variable'
+                '`Please set up HEROKU_APP_NAME variable'
                 ' to be able to deploy newest changes of userbot.`'
             )
             repo.__del__()
@@ -65,9 +65,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
                 f'{txt}\n`Invalid Heroku credentials for deploying userbot dyno.`'
             )
             return repo.__del__()
-        await event.edit('`[HEROKU]:'
-                         '\nUserbot dyno build in progress, please wait...`'
-                         )
+        await event.edit('`Userbot dyno build in progress, please wait...`')
         ups_rem.fetch(ac_br)
         repo.git.reset("--hard", "FETCH_HEAD")
         heroku_git_url = heroku_app.git_url.replace(
@@ -91,9 +89,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
                 "Your One4uBot was successfully updated")
 
     else:
-        await event.edit('`[HEROKU]:'
-                         '\nPlease set up` **HEROKU_API_KEY** `variable.`'
-                         )
+        await event.edit('`Please set up HEROKU_API_KEY variable.`')
     return
 
 
