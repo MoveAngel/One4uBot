@@ -8,26 +8,25 @@ import aiohttp
 import asyncio
 import os
 import time
+from github import Github
 from datetime import datetime
 from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
 from userbot.events import register
-from userbot import CMD_HELP, GITHUB_ACCESS_TOKEN, GIT_REPO_NAME
-
+from userbot import CMD_HELP, GITHUB_ACCESS_TOKEN, GIT_REPO_NAME, bot
 
 GIT_TEMP_DIR = "/One4uBot/temp/"
 
 
 @register(outgoing=True, pattern=r".git (.*)")
 async def github(event):
-    URL = f"https://api.github.com/users/{event.pattern_match.group(1)}"
+    username = event.pattern_match.group(1)
+    URL = f"https://api.github.com/users/{username}"
     chat = await event.get_chat()
     async with aiohttp.ClientSession() as session:
         async with session.get(URL) as request:
             if request.status == 404:
-                await event.reply("`" + event.pattern_match.group(1) +
-                                  " not found`")
-                return
+                return await event.reply(f"`{username} not found`")
 
             result = await request.json()
 
@@ -37,21 +36,20 @@ async def github(event):
             bio = result.get("bio", None)
             created_at = result.get("created_at", "Not Found")
 
-            REPLY = f"GitHub Info for `{event.pattern_match.group(1)}`\
-            \nUsername: `{name}`\
-            \nBio: `{bio}`\
-            \nURL: {url}\
-            \nCompany: `{company}`\
-            \nCreated at: `{created_at}`"
+            REPLY = (f"GitHub Info for `{username}`\n"
+                     f"Username: `{name}`\n"
+                     f"Bio: `{bio}`\n"
+                     f"URL: {url}\n"
+                     f"Company: `{company}`\n"
+                     f"Created at: `{created_at}`\n"
+                     f"More info : [Here](https://api.github.com/users/{username}/events/public)")
 
             if not result.get("repos_url", None):
-                await event.edit(REPLY)
-                return
+                return await event.edit(REPLY)
             async with session.get(result.get("repos_url", None)) as request:
                 result = request.json
                 if request.status == 404:
-                    await event.edit(REPLY)
-                    return
+                    return await event.edit(REPLY)
 
                 result = await request.json()
 
@@ -62,8 +60,7 @@ async def github(event):
 
                 await event.edit(REPLY)
 
-
-@register(outgoing=True, pattern=r".commit (.*)")
+@register(outgoing=True, pattern="^.commit(?: |$)(.*)")
 async def download(event):
     if event.fwd_from:
         return	
@@ -132,7 +129,8 @@ async def git_commit(file_name,mone):
 
 CMD_HELP.update({
     "github": 
-    ".git"
+    ".git <username>"
     "\nUsage: Like .whois but for GitHub usernames."
-    "\n\n.commit"
-    "\nUsage: GITHUB File Uploader Plugin for userbot. Heroku Automation should be Enabled."})
+    "\n\n.commit <reply file>"
+    "\nUsage: GITHUB File Uploader Plugin for userbot. Heroku Automation should be Enabled."
+})
