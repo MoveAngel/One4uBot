@@ -23,7 +23,7 @@
 
 Easy way to get STRING_SESSION. Run on repl.it
 
-<a href="https://One4uBot.moveangel.repl.run" target="_blank"><img src="https://img.shields.io/badge/run-string__session.py-blue?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
+<a href="https://userbotsession.moveangel.repl.run" target="_blank"><img src="https://img.shields.io/badge/run-string__session.py-blue?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
 
 ## How To Host?
 
