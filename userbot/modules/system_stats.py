@@ -136,7 +136,7 @@ async def amireallyalive(alive):
              f"`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx `\n"
              f"•  ⚙️ `Telethon    : v{version.__version__} `\n"
              f"•  🐍 `Python      : v{python_version()} `\n"
-             f"•  👤 `User        :` {DEFAULTUSER} \n"
+             f"•  👤 `User        :`  {DEFAULTUSER} \n"
              f"•  🐛 `Running on  : {UPSTREAM_REPO_BRANCH} `\n"
              f"`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx `\n")
 
