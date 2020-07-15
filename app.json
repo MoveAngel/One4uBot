@@ -197,6 +197,10 @@
       "description": "Set the default city for the userbot's weather module.",
       "required": false
     },
+    "WEATHER_DEFLANG": {
+      "description": "Set the default language for the userbot's weather module.",
+      "required": false
+    },
     "LOGSPAMMER": {
       "description": "Set this to True in case you want the error logs to be stored in the userbot log group, instead of spitting out the file in the current chat, requires a valid BOTLOG_CHATID to be set.",
       "value": "False"

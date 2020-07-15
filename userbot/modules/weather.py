@@ -11,8 +11,9 @@ from datetime import datetime
 from pytz import country_timezones as c_tz
 from pytz import timezone as tz
 from pytz import country_names as c_n
+from urllib.parse import quote
 
-from userbot import CMD_HELP, WEATHER_DEFCITY
+from userbot import CMD_HELP, WEATHER_DEFCITY, WEATHER_DEFLANG
 from userbot import OPEN_WEATHER_MAP_APPID as OWM_API
 from userbot.events import register
 
@@ -21,6 +22,11 @@ if WEATHER_DEFCITY:
     DEFCITY = WEATHER_DEFCITY
 else:
     DEFCITY = None
+
+if WEATHER_DEFLANG:
+    DEFLANG = WEATHER_DEFLANG
+else:
+    DEFLANG = "en"
 # ====================
 
 
@@ -134,8 +140,67 @@ async def get_weather(weather):
         f"`{cityname}, {fullc_n}`\n" + f"`{time}`")
 
 
-CMD_HELP.update({
-    "weather":
-    ".weather <city> or .weather <city>, <country name/code>\
-    \nUsage: Gets the weather of a city."
-})
+@register(outgoing=True, pattern="^.wtr(?: |$)(.*)")
+async def get_wtr(wtr):
+    """ For .wtr command, gets the current weather of a city. """
+
+    if not wtr.pattern_match.group(1):
+        CITY = DEFCITY
+        if not CITY:
+            await wtr.edit(
+                "`Please specify a city or set one as default using the WEATHER_DEFCITY config variable.`"
+            )
+            return
+    else:
+        CITY = wtr.pattern_match.group(1)
+
+    CITY = quote(CITY.replace(",", ""))
+    LANG = DEFLANG.lower()
+    URL = f"http://wttr.in/{CITY}?lang={LANG}&format=j1"
+    result = get(URL).json()
+
+    try:
+        weather = result["current_condition"][0]
+        tempC = weather["temp_C"]
+        tempF = weather["temp_F"]
+        humidity = weather["humidity"]
+        windK = weather["windspeedKmph"]
+        windM = weather["windspeedMiles"]
+        windD = weather["winddir16Point"]
+        time = weather["observation_time"]
+        mintempC = result["weather"][0]["mintempC"]
+        maxtempC = result["weather"][0]["maxtempC"]
+        mintempF = result["weather"][0]["mintempF"]
+        maxtempF = result["weather"][0]["maxtempF"]
+        sunrise = result["weather"][0]["astronomy"][0]["sunrise"]
+        sunset = result["weather"][0]["astronomy"][0]["sunset"]
+        country = result["nearest_area"][0]["country"][0]["value"]
+        region = result["nearest_area"][0]["region"][0]["value"]
+        desc = weather[f"lang_{LANG}"][0]["value"]
+    except KeyError:
+        desc = weather["weatherDesc"][0]["value"]
+
+    text = (
+        f"**{desc}**\n\n"
+        + f"**Temperature:** `{tempC}°C | {tempF}°F`\n"
+        + f"**Min. Temp.:** `{mintempC}°C | {mintempF}°F`\n"
+        + f"**Max. Temp.:** `{maxtempC}°C | {maxtempF}°F`\n"
+        + f"**Humidity:** `{humidity}%`\n"
+        + f"**Wind:** `{windK}Km/h | {windM}Mp/h, {windD}`\n"
+        + f"**Sunrise:** `{sunrise}`\n"
+        + f"**Sunset:** `{sunset}`\n"
+        + f"**Updated on:** `{time}`\n\n"
+        + f"`{region}, {country}`"
+    )
+
+    await wtr.edit(text)
+
+
+CMD_HELP.update(
+    {
+        "weather": ".weather <city> or .weather <city>, <country name/code>\
+    \nUsage: Gets the weather of a city.",
+        "wtr": ".wtr <city> or .wtr <city>, <country name/code>\
+    \nUsage: Gets the weather of a city.",
+    }
+)
