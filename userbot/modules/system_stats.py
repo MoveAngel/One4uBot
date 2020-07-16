@@ -128,7 +128,7 @@ async def pipcheck(pip):
             await pip.edit("`Use .help pip to see an example`")
 
 
-@register(outgoing=True, pattern=r"^\.(?:alive|on)\s?(.)?")
+@register(outgoing=True, pattern=r"^.(alive|on)$")
 async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
     output = ("`My Detail Ubot `\n"
