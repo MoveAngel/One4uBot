@@ -178,7 +178,7 @@
       "required": false
     },
     "ALIVE_LOGO": {
-      "description": "Show Image/Logo in .alive message",
+      "description": "Show Image/Logo in .alive message. Fill value of image your link image, use telegra.ph / i.ibb.co to get your own image",
       "required": false
     },
     "G_DRIVE_CLIENT_SECRET": {
@@ -199,6 +199,7 @@
     },
     "WEATHER_DEFLANG": {
       "description": "Set the default language for the userbot's weather module.",
+      "value": "en",
       "required": false
     },
     "LOGSPAMMER": {
