@@ -20,7 +20,7 @@ async def corona(event):
         output_text =  f"`Confirmed   : {country_data['confirmed']}`\n"
         output_text += f"`Active      : {country_data['active']}`\n"
         output_text += f"`Deaths      : {country_data['deaths']}`\n"
-        output_text += f"`Recovered   : {country_data['recovered']}`\n"
+        output_text += f"`Recovered   : {country_data['recovered']}`\n\n"
         output_text += f"`New Cases   : {country_data['new_cases']}`\n"
         output_text += f"`New Deaths  : {country_data['new_deaths']}`\n"
         output_text += f"`Critical    : {country_data['critical']}`\n"
