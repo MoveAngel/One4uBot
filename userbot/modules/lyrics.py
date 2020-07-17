@@ -64,4 +64,4 @@ CMD_HELP.update({
         "\nUsage: Get lyrics matched artist and song."
         "\n\n.lyrics now"
         "\nUsage: Get lyrics artist and song from current lastfm scrobbling."
-    })
+})

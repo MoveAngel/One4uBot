@@ -31,6 +31,7 @@ jikan = Jikan()
 
 # Anime Helper
 
+
 def getPosterLink(mal):
     # grab poster from kitsu
     kitsu = getKitsu(mal)
@@ -678,4 +679,3 @@ CMD_HELP.update({
     \n\n.whatanime Reply with media.\
     \nUsage: Find anime from media file."
 })
-

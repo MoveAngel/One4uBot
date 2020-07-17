@@ -5,13 +5,10 @@
 #
 # Port From UniBorg to UserBot by keselekpermen69
 
-import asyncio
 import io
 import re
 import userbot.modules.sql_helper.blacklist_sql as sql
-from telethon import events, utils
-from telethon.tl import types, functions
-from userbot import CMD_HELP, bot
+from userbot import CMD_HELP
 from userbot.events import register
 
 
@@ -25,17 +22,17 @@ async def on_new_message(event):
         if re.search(pattern, name, flags=re.IGNORECASE):
             try:
                 await event.delete()
-            except Exception as e:
+            except Exception:
                 await event.reply("I do not have DELETE permission in this chat")
                 sql.rm_from_blacklist(event.chat_id, snip.lower())
             break
-        pass
 
 
 @register(outgoing=True, pattern="^.addbl(?: |$)(.*)")
 async def on_add_black_list(addbl):
     text = addbl.pattern_match.group(1)
-    to_blacklist = list(set(trigger.strip() for trigger in text.split("\n") if trigger.strip()))
+    to_blacklist = list(set(trigger.strip()
+                            for trigger in text.split("\n") if trigger.strip()))
     for trigger in to_blacklist:
         sql.add_to_blacklist(addbl.chat_id, trigger.lower())
     await addbl.edit("Added {} triggers to the blacklist in the current chat".format(len(to_blacklist)))
@@ -69,13 +66,14 @@ async def on_view_blacklist(listbl):
 @register(outgoing=True, pattern="^.rmbl(?: |$)(.*)")
 async def on_delete_blacklist(rmbl):
     text = rmbl.pattern_match.group(1)
-    to_unblacklist = list(set(trigger.strip() for trigger in text.split("\n") if trigger.strip()))
+    to_unblacklist = list(set(trigger.strip()
+                              for trigger in text.split("\n") if trigger.strip()))
     successful = 0
     for trigger in to_unblacklist:
         if sql.rm_from_blacklist(rmbl.chat_id, trigger.lower()):
             successful += 1
     await rmbl.edit(f"Removed {successful} / {len(to_unblacklist)} from the blacklist")
-    
+
 CMD_HELP.update({
     "blacklist":
     ".listbl\

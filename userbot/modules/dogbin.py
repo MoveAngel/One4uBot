@@ -6,9 +6,8 @@
 """ Userbot module containing commands for interacting with dogbin(https://del.dog)"""
 
 from requests import get, post, exceptions
-import asyncio
 import os
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 
 DOGBIN_URL = "https://del.dog/"

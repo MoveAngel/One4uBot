@@ -10,6 +10,7 @@ from telethon import functions
 from userbot import CMD_HELP
 from userbot.events import register
 
+
 @register(outgoing=True, pattern="^.invite(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
@@ -47,7 +48,7 @@ async def _(event):
             await event.edit("`Invited Successfully`")
             await sleep(2)
             await event.delete()
-            
+
 CMD_HELP.update({
     'invite':
     '.invite <username> \

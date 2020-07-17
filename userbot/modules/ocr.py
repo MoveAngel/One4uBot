@@ -4,10 +4,8 @@
 # you may not use this file except in compliance with the License.
 #
 
-from telethon import events
 import os
 import requests
-import logging
 from userbot import bot, OCR_SPACE_API_KEY, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 from userbot.events import register
 

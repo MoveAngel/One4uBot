@@ -10,10 +10,8 @@ from random import randint
 from time import sleep
 from os import execl
 import sys
-import os
 import io
 import sys
-import json
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 from userbot.utils import time_formatter
@@ -107,7 +105,7 @@ async def reedme(e):
         "\n[Setup Guide - From MiHub with Pict](https://www.mihub.my.id/2020/05/jadiuserbot.html)"
         "\n[Setup Guide - In Indonesian Language](https://telegra.ph/UserIndoBot-05-21-3)"
         "\n[Instant Setup - Generate String Session](https://userbotsession.moveangel.repl.run)")
-    
+
 
 # Copyright (c) Gegham Zakaryan | 2019
 @register(outgoing=True, pattern="^.repeat (.*)")

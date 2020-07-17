@@ -7,21 +7,21 @@
 
 import asyncio
 import zipfile
-from pySmartDL import SmartDL
 from userbot.events import register
 from datetime import date
 import time
 import os
 from userbot import TEMP_DOWNLOAD_DIRECTORY, ZIP_DOWNLOAD_DIRECTORY, bot, CMD_HELP
-from userbot.utils import progress, humanbytes, time_formatter, human_to_bytes
+from userbot.utils import progress
 
 # ====================
 today = date.today()
 # ====================
 
+
 @register(outgoing=True, pattern=r"^\.compress(?: |$)(.*)")
 async def _(event):
-    #Prevent Channel Bug to use update
+    # Prevent Channel Bug to use update
     if event.is_channel and not event.is_group:
         await event.edit("`Compress Command isn't permitted on channels`")
         return
@@ -72,7 +72,7 @@ async def _(event):
 @register(outgoing=True, pattern=r"^\.addzip(?: |$)(.*)")
 async def addzip(add):
     """ Copyright (c) 2020 azrim @github"""
-    #Prevent Channel Bug to use update
+    # Prevent Channel Bug to use update
     if add.is_channel and not add.is_group:
         await add.edit("`Command isn't permitted on channels`")
         return
@@ -95,7 +95,6 @@ async def addzip(add):
                     progress(d, t, mone, c_time, "[DOWNLOADING]")
                 ),
             )
-            directory_name = downloaded_file_name
             success = str(downloaded_file_name).replace("./zips/", "")
             await add.edit(f"`{success} Successfully added to list`")
         except Exception as e:  # pylint:disable=C0103,W0703
@@ -128,6 +127,7 @@ async def upload_zip(up):
     )
     os.rmdir(ZIP_DOWNLOAD_DIRECTORY)
     await up.delete()
+
 
 @register(outgoing=True, pattern=r"^\.rmzip(?: |$)(.*)")
 async def remove_dir(rm):
