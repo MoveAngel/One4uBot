@@ -126,9 +126,6 @@ QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN") or None
 ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT") or "False")
 ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT") or "False")
 
-# Youtube API key
-YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY") or None
-
 # Default .alive name
 ALIVE_NAME = os.environ.get("ALIVE_NAME") or None
 
