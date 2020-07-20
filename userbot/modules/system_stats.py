@@ -5,12 +5,17 @@
 #
 """ Userbot module for getting information about the server. """
 
+import platform
+import sys
 from asyncio import create_subprocess_exec as asyncrunapp
 from asyncio.subprocess import PIPE as asyncPIPE
+from datetime import datetime
+from os import remove
 from platform import python_version, uname
 from shutil import which
-from os import remove
-from telethon import version
+
+import psutil
+from telethon import __version__, version
 
 from userbot import bot, CMD_HELP, ALIVE_NAME, ALIVE_LOGO, UPSTREAM_REPO_BRANCH, USERBOT_VERSION
 from userbot.events import register
@@ -20,7 +25,65 @@ DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 # ============================================
 
 
-@register(outgoing=True, pattern="^.sysd$")
+@register(outgoing=True, pattern=r"^\.spc")
+async def psu(event):
+    uname = platform.uname()
+    softw = "**System Information**\n"
+    softw += f"`System   : {uname.system}`\n"
+    softw += f"`Release  : {uname.release}`\n"
+    softw += f"`Version  : {uname.version}`\n"
+    softw += f"`Machine  : {uname.machine}`\n"
+    # Boot Time
+    boot_time_timestamp = psutil.boot_time()
+    bt = datetime.fromtimestamp(boot_time_timestamp)
+    softw += f"`Boot Time: {bt.day}/{bt.month}/{bt.year}  {bt.hour}:{bt.minute}:{bt.second}`\n"
+    # CPU Cores
+    cpuu = "**CPU Info**\n"
+    cpuu += "`Physical cores   : " + \
+        str(psutil.cpu_count(logical=False)) + "`\n"
+    cpuu += "`Total cores      : " + \
+        str(psutil.cpu_count(logical=True)) + "`\n"
+    # CPU frequencies
+    cpufreq = psutil.cpu_freq()
+    cpuu += f"`Max Frequency    : {cpufreq.max:.2f}Mhz`\n"
+    cpuu += f"`Min Frequency    : {cpufreq.min:.2f}Mhz`\n"
+    cpuu += f"`Current Frequency: {cpufreq.current:.2f}Mhz`\n\n"
+    # CPU usage
+    cpuu += "**CPU Usage Per Core**\n"
+    for i, percentage in enumerate(psutil.cpu_percent(percpu=True)):
+        cpuu += f"`Core {i}  : {percentage}%`\n"
+    cpuu += "**Total CPU Usage**\n"
+    cpuu += f"`All Core: {psutil.cpu_percent()}%`\n"
+    # RAM Usage
+    svmem = psutil.virtual_memory()
+    memm = "**Memory Usage**\n"
+    memm += f"`Total     : {get_size(svmem.total)}`\n"
+    memm += f"`Available : {get_size(svmem.available)}`\n"
+    memm += f"`Used      : {get_size(svmem.used)}`\n"
+    memm += f"`Percentage: {svmem.percent}%`\n"
+    # Bandwidth Usage
+    bw = "**Bandwith Usage**\n"
+    bw += f"`Upload  : {get_size(psutil.net_io_counters().bytes_sent)}`\n"
+    bw += f"`Download: {get_size(psutil.net_io_counters().bytes_recv)}`\n"
+    help_string = f"{str(softw)}\n"
+    help_string += f"{str(cpuu)}\n"
+    help_string += f"{str(memm)}\n"
+    help_string += f"{str(bw)}\n"
+    help_string += "**Engine Info**\n"
+    help_string += f"`Python {sys.version}`\n"
+    help_string += f"`Telethon {__version__}`"
+    await event.edit(help_string)
+
+
+def get_size(bytes, suffix="B"):
+    factor = 1024
+    for unit in ["", "K", "M", "G", "T", "P"]:
+        if bytes < factor:
+            return f"{bytes:.2f}{unit}{suffix}"
+        bytes /= factor
+
+
+@register(outgoing=True, pattern=r"^\.sysd$")
 async def sysdetails(sysd):
     """ For .sysd command, get system info using neofetch. """
     if not sysd.text[0].isalpha() and sysd.text[0] not in ("/", "#", "@", "!"):
@@ -168,13 +231,19 @@ async def amireallyalivereset(ureset):
     await ureset.edit("`" "Successfully reset user for alive!" "`")
 
 
-CMD_HELP.update(
-    {"sysd": ".sysd\
-    \nUsage: Shows system information using neofetch."})
-CMD_HELP.update({"botver": ".botver\
+CMD_HELP.update({
+    "sysd": 
+    ".sysd\
+    \nUsage: Shows system information using neofetch.\
+    \n\n.spc\
+    \nUsage: Show system specification."})
+CMD_HELP.update({
+    "botver": 
+    ".botver\
     \nUsage: Shows the userbot version."})
-CMD_HELP.update(
-    {"pip": ".pip <module(s)>\
+CMD_HELP.update({
+    "pip": 
+    ".pip <module(s)>\
     \nUsage: Does a search of pip modules(s)."})
 CMD_HELP.update({
     "alive":

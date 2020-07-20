@@ -30,6 +30,7 @@ lyricsgenius
 oauth2client
 pendulum==2.0.5
 Pillow>=6.0.0
+psutil
 psycopg2
 psycopg2-binary
 pybase64>=0.4.0
