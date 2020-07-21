@@ -20,6 +20,8 @@ from telethon.sessions import StringSession
 
 load_dotenv("config.env")
 
+StartTime = time.time()
+
 # Bot Logs setup:
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get(
     "CONSOLE_LOGGER_VERBOSE") or "False")
