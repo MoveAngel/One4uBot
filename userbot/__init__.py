@@ -116,9 +116,6 @@ WEATHER_DEFLANG = os.environ.get("WEATHER_DEFLANG") or None
 # Genius lyrics API
 GENIUS = os.environ.get("GENIUS_ACCESS_TOKEN") or None
 
-# Quotes API Token
-QUOTES_API_TOKEN = os.environ.get("QUOTES_API_TOKEN") or None
-
 # Wolfram Alpha API
 WOLFRAM_ID = os.environ.get("WOLFRAM_ID") or None
 
