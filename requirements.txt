@@ -43,7 +43,7 @@ pytz
 qrcode
 redis>=3.3.10
 requests>=2.18.4
-search-engine-parser>=0.4.2
+search-engine-parser>=0.6.1
 speedtest-cli>=2.0.2
 sqlalchemy>=1.2
 TgCrypto>=1.2.0
