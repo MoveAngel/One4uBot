@@ -420,7 +420,7 @@ async def muter(moot):
     except AttributeError:
         return
     muted = is_muted(moot.chat_id)
-    is_gmuted(moot.sender_id)
+    gmuted = is_gmuted(moot.sender_id)
     rights = ChatBannedRights(
         until_date=None,
         send_messages=True,
@@ -440,6 +440,9 @@ async def muter(moot):
                         EditBannedRequest(moot.chat_id, moot.sender_id, rights))
                 except (BadRequestError, UserAdminInvalidError, ChatAdminRequiredError, UserIdInvalidError):
                     await moot.client.send_read_acknowledge(moot.chat_id, moot.id)
+    for i in gmuted:
+        if i.sender == str(moot.sender_id):
+            await moot.delete()
 
 
 @register(outgoing=True, pattern="^.ungmute(?: |$)(.*)")
