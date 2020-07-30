@@ -16,12 +16,15 @@ from shutil import which
 
 import psutil
 from telethon import __version__, version
+from git import Repo
 
-from userbot import bot, CMD_HELP, ALIVE_NAME, ALIVE_LOGO, UPSTREAM_REPO_BRANCH, USERBOT_VERSION
+from userbot import bot, CMD_HELP, ALIVE_NAME, ALIVE_LOGO, USERBOT_VERSION
 from userbot.events import register
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
+repo = Repo()
+modules = CMD_HELP
 # ============================================
 
 
@@ -194,14 +197,16 @@ async def pipcheck(pip):
 @register(outgoing=True, pattern=r"^.(alive|on)$")
 async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
-    output = ("`My Detail Ubot `\n"
-              f"`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx `\n"
-              f"•  ⚙️ `Telethon    : v{version.__version__} `\n"
-              f"•  🐍 `Python      : v{python_version()} `\n"
-              f"•  👤 `User        :`  {DEFAULTUSER} \n"
-              f"•  🐛 `Running on  : {UPSTREAM_REPO_BRANCH} `\n"
+    output = ("`Bot services is running...`\n"
+              "`⊷⊷⊷⊷⊷⊷⊷⊷⊷⊷⊶⊷⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶`\n"
+              f"•  ⚙️ `Telethon       : v{version.__version__} `\n"
+              f"•  🐍 `Python         : v{python_version()} `\n"
+              f"•  👤 `User           :`  {DEFAULTUSER} \n"
+              "`----------------------------------`\n"
+              f"•  💻 `Running on  : {repo.active_branch.name} `\n"
+              f"•  🗃 `Loaded modules : {len(modules)} `\n"
               f"•  🧸 `One4uBot    : v{USERBOT_VERSION} `\n"
-              f"`xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx `\n")
+              "`⊷⊷⊷⊷⊷⊷⊷⊷⊷⊷⊶⊷⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶`")
     if ALIVE_LOGO:
         logo = ALIVE_LOGO
         await bot.send_file(alive.chat_id, logo, caption=output)
