@@ -37,9 +37,7 @@ from asyncio import sleep
 from userbot import (CMD_HELP, BOTLOG, BOTLOG_CHATID,
                      CHROME_DRIVER, GOOGLE_CHROME_BIN)
 from userbot.events import register
-from telethon import events
 from telethon.tl.types import DocumentAttributeAudio
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 from userbot.utils import progress
 from userbot.utils.google_images_download import googleimagesdownload
 
