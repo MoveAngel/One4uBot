@@ -1038,30 +1038,6 @@ async def clock(event):
         return
 
 
-@register(outgoing=True, pattern="^.rain$")
-async def rain(event):
-    deq = deque(list("☀️🌤⛅️🌥☁️🌧⛈"))
-    try:
-        for x in range(32):
-            await sleep(0.1)
-            await event.edit("".join(deq))
-            deq.rotate(1)
-    except BaseException:
-        return
-
-
-@register(outgoing=True, pattern="^.love$")
-async def love(event):
-    deq = deque(list("❤️🧡💛💚💙💜🖤💕💞💓💗💖💘💝"))
-    try:
-        for x in range(32):
-            await sleep(0.1)
-            await event.edit("".join(deq))
-            deq.rotate(1)
-    except BaseException:
-        return
-
-
 @register(outgoing=True, pattern="^.mock(?: |$)(.*)")
 async def spongemocktext(mock):
     """ Do it and find the real fun. """
@@ -1286,20 +1262,6 @@ async def taco(e):
                      "\n( >🌮 Want a taco?")
 
 
-@register(outgoing=True, pattern="^.sayhi$")
-async def sayhi(e):
-    await e.edit(
-        "\n💰💰💰💰💰💰💰💰💰💰💰💰"
-        "\n💰🔷💰💰💰🔷💰💰🔷🔷🔷💰"
-        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
-        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
-        "\n💰🔷🔷🔷🔷🔷💰💰💰🔷💰💰"
-        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
-        "\n💰🔷💰💰💰🔷💰💰💰🔷💰💰"
-        "\n💰🔷💰💰💰🔷💰💰🔷🔷🔷💰"
-        "\n💰💰💰💰💰💰💰💰💰💰💰💰")
-
-
 @register(outgoing=True, pattern="^.gey$")
 async def gey(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -1405,7 +1367,6 @@ CMD_HELP.update({
 \nUsage: Create fake chat actions, for fun. (Default action: typing)\
 \n\nAnd many more\
 \n.nou ; .bot ; .gey ; .gey ; .tf ; .paw ; .taco ; .nih ;\
-\n.fag ; .gtfo ; .stfu ; .lol ; .lool ; .fail ; .love\
-\n.rain ; .earth ; .iwi ; .sayhi\
+\n.fag ; .gtfo ; .stfu ; .lol ; .lool ; .fail ; .earth ; .iwi\
 \n\n\nThanks to 🅱️ottom🅱️ext🅱️ot (@NotAMemeBot) for some of these."
 })
