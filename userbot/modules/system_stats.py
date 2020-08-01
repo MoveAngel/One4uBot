@@ -203,9 +203,9 @@ async def amireallyalive(alive):
               f"•  🐍 `Python         : v{python_version()} `\n"
               f"•  👤 `User           :`  {DEFAULTUSER} \n"
               "`----------------------------------`\n"
-              f"•  💻 `Running on  : {repo.active_branch.name} `\n"
+              f"•  💻 `Running on     : {repo.active_branch.name} `\n"
               f"•  🗃 `Loaded modules : {len(modules)} `\n"
-              f"•  🧸 `One4uBot    : v{USERBOT_VERSION} `\n"
+              f"•  🧸 `One4uBot       : v{USERBOT_VERSION} `\n"
               "`⊷⊷⊷⊷⊷⊷⊷⊷⊷⊷⊶⊷⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶`")
     if ALIVE_LOGO:
         logo = ALIVE_LOGO
