@@ -142,6 +142,9 @@ USERBOT_VERSION = os.environ.get("USERBOT_VERSION") or "3.4"
 # User Terminal alias
 USER_TERM_ALIAS = os.environ.get("USER_TERM_ALIAS") or "One4uBot"
 
+# Updater alias
+UPDATER_ALIAS = os.environ.get("UPDATER_ALIAS") or "One4uBot"
+
 # Zipfile module
 ZIP_DOWNLOAD_DIRECTORY = os.environ.get("ZIP_DOWNLOAD_DIRECTORY") or "./zips"
 
