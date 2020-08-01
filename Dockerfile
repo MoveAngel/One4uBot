@@ -1,4 +1,4 @@
-FROM movecrew/one4ubot:alpine-latest
+FROM movecrew/one4udeb:debian-latest
 
 RUN mkdir /One4uBot && chmod 777 /One4uBot
 ENV PATH="/One4uBot/bin:$PATH"
