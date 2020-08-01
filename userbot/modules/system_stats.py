@@ -237,17 +237,17 @@ async def amireallyalivereset(ureset):
 
 
 CMD_HELP.update({
-    "sysd": 
+    "sysd":
     ".sysd\
     \nUsage: Shows system information using neofetch.\
     \n\n.spc\
     \nUsage: Show system specification."})
 CMD_HELP.update({
-    "botver": 
+    "botver":
     ".botver\
     \nUsage: Shows the userbot version."})
 CMD_HELP.update({
-    "pip": 
+    "pip":
     ".pip <module(s)>\
     \nUsage: Does a search of pip modules(s)."})
 CMD_HELP.update({
