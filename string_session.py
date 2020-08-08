@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8-*-
+#
 # (c) https://t.me/TelethonChat/37677 and SpEcHiDe
 #
 # Licensed under the Raphielscape Public License, Version 1.d (the "License");

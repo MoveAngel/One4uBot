@@ -13,7 +13,7 @@
     <a href="https://t.me/userbotindo"> <img src="https://img.shields.io/badge/telegram-Support_Group-blue?style=social&logo=telegram" alt="Support" /></a>
 </p>
 
-![logo](https://telegra.ph/file/6935648afa7edc00f1611.jpg)
+![logo](https://i.ibb.co/02QVkHC/headersmina.jpg)
 
 ```
 #include <std/disclaimer.h>
@@ -32,10 +32,15 @@
 ```
 
 ## Generate String Session
+Easy way to get STRING_SESSION. 
 
-Easy way to get STRING_SESSION. Run on repl.it
+### Run on repl.it
+[![Run repl.it](https://img.shields.io/badge/run-string__session.py-blue?style=flat-square&logo=repl.it)](https://userbotsession.moveangel.repl.run)
 
-<a href="https://userbotsession.moveangel.repl.run" target="_blank"><img src="https://img.shields.io/badge/run-string__session.py-blue?style=for-the-badge&logo=repl.it" alt="generate_string" /></a>
+### or Run on your terminal
+```
+wget https://raw.githubusercontent.com/MoveAngel/One4uBot/sql-extended/terminal_getstring.sh && bash terminal_getstring.sh
+```
 
 ## How To Host?
 
