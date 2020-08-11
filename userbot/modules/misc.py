@@ -47,21 +47,21 @@ async def sleepybot(time):
 
 
 @register(outgoing=True, pattern="^.shutdown$")
-async def killdabot(event):
-    """ For .shutdown command, shut the bot down."""
-    await event.edit("`Goodbye *Windows XP shutdown sound*....`")
+async def killbot(shut):
+    """For .shutdown command, shut the bot down."""
+    await shut.edit("`Goodbye *Windows XP shutdown sound*....`")
     if BOTLOG:
-        await event.client.send_message(BOTLOG_CHATID, "#SHUTDOWN \n"
-                                        "Bot shut down")
+        await shut.client.send_message(BOTLOG_CHATID, "#SHUTDOWN \n"
+                                       "Bot shut down")
     await bot.disconnect()
 
 
 @register(outgoing=True, pattern="^.restart$")
-async def killdabot(event):
-    await event.edit("`*i would be back in a moment*`")
+async def killdabot(reboot):
+    await reboot.edit("`*i would be back in a moment*`")
     if BOTLOG:
-        await event.client.send_message(BOTLOG_CHATID, "#RESTART \n"
-                                        "Bot Restarted")
+        await reboot.client.send_message(BOTLOG_CHATID, "#RESTART \n"
+                                         "Bot Restarted")
     await bot.disconnect()
     # Spin a new instance of bot
     execl(sys.executable, sys.executable, *sys.argv)
@@ -70,8 +70,8 @@ async def killdabot(event):
 
 
 @register(outgoing=True, pattern="^.readme$")
-async def reedme(e):
-    await e.edit(
+async def reedme(event):
+    await event.edit(
         "Here's something for you to read:\n"
         "\n[One4uBot's README.md file](https://github.com/MoveAngel/One4uBot/blob/sql-extended/README.md)"
         "\n[Setup Guide - Basic](https://telegra.ph/How-to-host-a-Telegram-Userbot-07-01-2)"
@@ -106,21 +106,21 @@ async def repo_is_here(wannasee):
 
 
 @register(outgoing=True, pattern="^.raw$")
-async def raw(event):
+async def raw(rawtext):
     the_real_message = None
     reply_to_id = None
-    if event.reply_to_msg_id:
-        previous_message = await event.get_reply_message()
+    if rawtext.reply_to_msg_id:
+        previous_message = await rawtext.get_reply_message()
         the_real_message = previous_message.stringify()
-        reply_to_id = event.reply_to_msg_id
+        reply_to_id = rawtext.reply_to_msg_id
     else:
-        the_real_message = event.stringify()
-        reply_to_id = event.message.id
+        the_real_message = rawtext.stringify()
+        reply_to_id = rawtext.message.id
     with io.BytesIO(str.encode(the_real_message)) as out_file:
         out_file.name = "raw_message_data.txt"
-        await event.edit(
+        await rawtext.edit(
             "`Check the userbot log for the decoded message data !!`")
-        await event.client.send_file(
+        await rawtext.client.send_file(
             BOTLOG_CHATID,
             out_file,
             force_document=True,
