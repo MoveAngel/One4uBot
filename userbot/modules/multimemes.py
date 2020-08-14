@@ -7,19 +7,12 @@
 #
 # Based code + improve from AdekMaulana and aidilaryanto
 
-from io import BytesIO
-from PIL import Image
 import asyncio
 from asyncio.exceptions import TimeoutError
 import re
 import random
-from logging import Logger as logger
 from telethon import events
 import os
-import requests
-import base64
-import json
-import telethon
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import (
     DocumentAttributeFilename,

@@ -14,10 +14,8 @@ from bs4 import BeautifulSoup
 import re
 from time import sleep
 from re import findall
-from selenium import webdriver
 from urllib.parse import quote_plus
 from urllib.error import HTTPError
-from selenium.webdriver.chrome.options import Options
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
 from urbandict import define

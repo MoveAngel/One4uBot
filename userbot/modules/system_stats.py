@@ -7,7 +7,6 @@
 
 import platform
 import sys
-import time
 from asyncio import create_subprocess_exec as asyncrunapp
 from asyncio.subprocess import PIPE as asyncPIPE
 from datetime import datetime
@@ -19,7 +18,7 @@ import psutil
 from telethon import __version__, version
 from git import Repo
 
-from userbot import bot, CMD_HELP, ALIVE_NAME, ALIVE_LOGO, USERBOT_VERSION, StartTime
+from userbot import ALIVE_LOGO, ALIVE_NAME, CMD_HELP, USERBOT_VERSION, bot
 from userbot.events import register
 
 # ================= CONSTANT =================
