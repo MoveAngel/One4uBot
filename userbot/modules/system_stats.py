@@ -7,6 +7,7 @@
 
 import platform
 import sys
+import time
 from asyncio import create_subprocess_exec as asyncrunapp
 from asyncio.subprocess import PIPE as asyncPIPE
 from datetime import datetime
@@ -18,7 +19,7 @@ import psutil
 from telethon import __version__, version
 from git import Repo
 
-from userbot import ALIVE_LOGO, ALIVE_NAME, CMD_HELP, USERBOT_VERSION, bot
+from userbot import ALIVE_LOGO, ALIVE_NAME, CMD_HELP, StartTime, USERBOT_VERSION, bot
 from userbot.events import register
 
 # ================= CONSTANT =================
@@ -225,6 +226,7 @@ async def pipcheck(pip):
 @register(outgoing=True, pattern=r"^.(alive|on)$")
 async def amireallyalive(alive):
     """ For .alive command, check if the bot is running.  """
+    uptime = await get_readable_time((time.time() - StartTime))
     output = ("`Bot services is running...`\n"
               "`⊷⊷⊷⊷⊷⊷⊷⊷⊷⊷⊶⊷⊶⊶⊶⊶⊶⊶⊶⊶⊶⊶`\n"
               f"•  ⚙️ `Telethon       : v{version.__version__} `\n"
