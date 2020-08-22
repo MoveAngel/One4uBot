@@ -85,7 +85,7 @@ async def psu(event):
     cpuu += "**CPU Usage Per Core**\n"
     for i, percentage in enumerate(psutil.cpu_percent(percpu=True)):
         cpuu += f"`Core {i}  : {percentage}%`\n"
-    cpuu += "**Total CPU Usage**\n"
+    cpuu += "\n**Total CPU Usage**\n"
     cpuu += f"`All Core: {psutil.cpu_percent()}%`\n"
     # RAM Usage
     svmem = psutil.virtual_memory()
