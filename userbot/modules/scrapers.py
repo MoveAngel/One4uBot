@@ -118,8 +118,13 @@ async def img_sampler(event):
         "no_directory": "no_directory"
     }
 
-    # passing the arguments to the function
-    paths = response.download(arguments)
+    # if the query contains some special characters, googleimagesdownload errors out
+    # this is a temporary workaround for it (maybe permanent)
+    try:
+        paths = response.download(arguments)
+    except Exception as e:
+        return await event.edit(f"`Error: {e}`")
+
     lst = paths[0][query]
     await event.client.send_file(
         await event.client.get_input_entity(event.chat_id), lst)
