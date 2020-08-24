@@ -92,8 +92,7 @@ async def psu(event):
     memm = "**Memory Usage**\n"
     memm += f"`Total     : {get_size(svmem.total)}`\n"
     memm += f"`Available : {get_size(svmem.available)}`\n"
-    memm += f"`Used      : {get_size(svmem.used)}`\n"
-    memm += f"`Percentage: {svmem.percent}%`\n"
+    memm += f"`Used      : {get_size(svmem.used)} ({svmem.percent}%)`\n"
     # Disk Usage
     dtotal, dused, dfree = shutil.disk_usage('.')
     disk = "**Disk Usage**\n"
