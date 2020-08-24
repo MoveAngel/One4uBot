@@ -20,11 +20,10 @@ from telethon.tl.functions.channels import (EditAdminRequest,
                                             EditBannedRequest,
                                             EditPhotoRequest)
 from telethon.tl.functions.messages import UpdatePinnedMessageRequest
-from telethon.tl.types import (PeerChannel, ChannelParticipantsAdmins,
-                               ChannelParticipantAdmin, ChatAdminRights,
-                               ChatBannedRights, MessageEntityMentionName,
-                               MessageMediaPhoto, ChannelParticipantsBots,
-                               ChannelParticipantCreator)
+from telethon.tl.types import (ChannelParticipantsAdmins, ChannelParticipantAdmin,
+                               ChatAdminRights, ChatBannedRights,
+                               MessageEntityMentionName, MessageMediaPhoto,
+                               ChannelParticipantsBots, ChannelParticipantCreator)
 
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
