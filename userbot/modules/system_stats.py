@@ -15,6 +15,7 @@ from os import remove
 from platform import python_version, uname
 from shutil import which
 
+import shutil
 import psutil
 from telethon import __version__, version
 from git import Repo
@@ -93,6 +94,12 @@ async def psu(event):
     memm += f"`Available : {get_size(svmem.available)}`\n"
     memm += f"`Used      : {get_size(svmem.used)}`\n"
     memm += f"`Percentage: {svmem.percent}%`\n"
+    # Disk Usage
+    dtotal, dused, dfree = shutil.disk_usage('.')
+    disk = "**Disk Usage**\n"
+    disk += f"`Total     : {get_size(dtotal)}`\n"
+    disk += f"`Free      : {get_size(dused)}`\n"
+    disk += f"`Used      : {get_size(dfree)}`\n"
     # Bandwidth Usage
     bw = "**Bandwith Usage**\n"
     bw += f"`Upload  : {get_size(psutil.net_io_counters().bytes_sent)}`\n"
@@ -100,6 +107,7 @@ async def psu(event):
     help_string = f"{str(softw)}\n"
     help_string += f"{str(cpuu)}\n"
     help_string += f"{str(memm)}\n"
+    help_string += f"{str(disk)}\n"
     help_string += f"{str(bw)}\n"
     help_string += "**Engine Info**\n"
     help_string += f"`Python {sys.version}`\n"
