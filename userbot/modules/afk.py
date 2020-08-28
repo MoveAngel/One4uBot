@@ -15,12 +15,12 @@ from userbot import (
     AFKREASON,
     BOTLOG,
     BOTLOG_CHATID,
-    CMD_HELP,  # noqa
+    CMD_HELP,
     COUNT_MSG,
     ISAFK,
     PM_AUTO_BAN,
     USERS,
-)
+) # noqa
 from userbot.events import register
 
 # ========================= CONSTANTS ============================
