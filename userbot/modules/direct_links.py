@@ -5,23 +5,22 @@
 #
 """ Userbot module containing various sites direct links generators"""
 
-from asyncio import create_subprocess_shell as asyncSubprocess
-from asyncio.subprocess import PIPE as asyncPIPE
-
 import asyncio
+import json
 import re
 import urllib.parse
-import json
-import aiohttp
+from asyncio import create_subprocess_shell as asyncSubprocess
+from asyncio.subprocess import PIPE as asyncPIPE
 from random import choice
 
+import aiohttp
 import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
 
 from userbot import CMD_HELP, USR_TOKEN
-from userbot.utils import time_formatter
 from userbot.events import register
+from userbot.utils import time_formatter
 
 
 async def subprocess_run(cmd):
@@ -31,10 +30,11 @@ async def subprocess_run(cmd):
     exitCode = subproc.returncode
     if exitCode != 0:
         reply += (
-            '**An error was detected while running subprocess.**\n'
-            f'exitCode : `{exitCode}`\n'
-            f'stdout : `{result[0].decode().strip()}`\n'
-            f'stderr : `{result[1].decode().strip()}`')
+            "**An error was detected while running subprocess.**\n"
+            f"exitCode : `{exitCode}`\n"
+            f"stdout : `{result[0].decode().strip()}`\n"
+            f"stderr : `{result[1].decode().strip()}`"
+        )
         return reply
     return result
 
@@ -58,23 +58,23 @@ async def direct_link_generator(request):
         reply = "`No links found!`"
         await request.edit(reply)
     for link in links:
-        if 'zippyshare.com' in link:
+        if "zippyshare.com" in link:
             reply += await zippy_share(link)
-        elif 'yadi.sk' in link:
+        elif "yadi.sk" in link:
             reply += await yandex_disk(link)
-        elif 'cloud.mail.ru' in link:
+        elif "cloud.mail.ru" in link:
             reply += await cm_ru(link)
-        elif 'mediafire.com' in link:
+        elif "mediafire.com" in link:
             reply += await mediafire(link)
-        elif 'sourceforge.net' in link:
+        elif "sourceforge.net" in link:
             reply += await sourceforge(link)
-        elif 'osdn.net' in link:
+        elif "osdn.net" in link:
             reply += await osdn(link)
-        elif 'github.com' in link:
+        elif "github.com" in link:
             reply += await github(link)
-        elif 'androidfilehost.com' in link:
+        elif "androidfilehost.com" in link:
             reply += await androidfilehost(link)
-        elif 'uptobox.com' in link:
+        elif "uptobox.com" in link:
             await uptobox(request, link)
             return None
         else:
@@ -83,7 +83,7 @@ async def direct_link_generator(request):
 
 
 async def zippy_share(url: str) -> str:
-    """ ZippyShare direct links generator
+    """ZippyShare direct links generator
     Based on https://github.com/LameLemon/ziggy"""
     reply = ""
     dl_url = ""
@@ -114,7 +114,7 @@ async def zippy_share(url: str) -> str:
 
 
 async def yandex_disk(url: str) -> str:
-    """ Yandex.Disk direct links generator
+    """Yandex.Disk direct links generator
     Based on https://github.com/wldhx/yadisk-direct"""
     reply = ""
     try:
@@ -134,7 +134,7 @@ async def yandex_disk(url: str) -> str:
 
 
 async def cm_ru(url: str) -> str:
-    """ cloud.mail.ru direct links generator
+    """cloud.mail.ru direct links generator
     Using https://github.com/JrMasterModelBuilder/cmrudl.py"""
     reply = ""
     try:
@@ -251,7 +251,7 @@ async def androidfilehost(url: str) -> str:
     fid = re.findall(r"\?fid=(.*)", link)[0]
     session = requests.Session()
     user_agent = await useragent()
-    headers = {'user-agent': user_agent}
+    headers = {"user-agent": user_agent}
     res = session.get(link, headers=headers, allow_redirects=True)
     headers = {
         "origin": "https://androidfilehost.com",
@@ -292,59 +292,56 @@ async def androidfilehost(url: str) -> str:
 async def uptobox(request, url: str) -> str:
     """ Uptobox direct links generator """
     try:
-        link = re.findall(r'\bhttps?://.*uptobox\.com\S+', url)[0]
+        link = re.findall(r"\bhttps?://.*uptobox\.com\S+", url)[0]
     except IndexError:
-        await request.edit('`No uptobox links found.`')
+        await request.edit("`No uptobox links found.`")
         return
     if USR_TOKEN is None:
-        await request.edit('`Set USR_TOKEN_UPTOBOX first!`')
+        await request.edit("`Set USR_TOKEN_UPTOBOX first!`")
         return
-    if link.endswith('/'):
+    if link.endswith("/"):
         index = -2
     else:
         index = -1
-    FILE_CODE = link.split('/')[index]
-    origin = 'https://uptobox.com/api/link'
+    FILE_CODE = link.split("/")[index]
+    origin = "https://uptobox.com/api/link"
     """ Retrieve file informations """
-    uri = f'{origin}/info?fileCodes={FILE_CODE}'
-    await request.edit('`Retrieving file informations...`')
+    uri = f"{origin}/info?fileCodes={FILE_CODE}"
+    await request.edit("`Retrieving file informations...`")
     async with aiohttp.ClientSession() as session:
         async with session.get(uri) as response:
             result = json.loads(await response.text())
-            data = result.get('data').get('list')[0]
-            if 'error' in data:
+            data = result.get("data").get("list")[0]
+            if "error" in data:
                 await request.edit(
                     "`[ERROR]`\n"
                     f"`statusCode`: **{data.get('error').get('code')}**\n"
                     f"`reason`: **{data.get('error').get('message')}**"
                 )
                 return
-            file_name = data.get('file_name')
-            file_size = naturalsize(data.get('file_size'))
+            file_name = data.get("file_name")
+            file_size = naturalsize(data.get("file_size"))
     """ Get waiting token and direct download link """
-    uri = f'{origin}?token={USR_TOKEN}&file_code={FILE_CODE}'
+    uri = f"{origin}?token={USR_TOKEN}&file_code={FILE_CODE}"
     async with aiohttp.ClientSession() as session:
         async with session.get(uri) as response:
             result = json.loads(await response.text())
-            status = result.get('message')
+            status = result.get("message")
             if status == "Waiting needed":
-                wait = result.get('data').get('waiting')
-                waitingToken = result.get('data').get('waitingToken')
-                await request.edit(
-                    f'`Waiting for about {time_formatter(wait)}.`')
+                wait = result.get("data").get("waiting")
+                waitingToken = result.get("data").get("waitingToken")
+                await request.edit(f"`Waiting for about {time_formatter(wait)}.`")
                 # for some reason it doesn't go as i planned
                 # so make it 1 minute just to be save enough
                 await asyncio.sleep(wait + 60)
                 uri += f"&waitingToken={waitingToken}"
                 async with session.get(uri) as response:
-                    await request.edit('`Generating direct download link...`')
+                    await request.edit("`Generating direct download link...`")
                     result = json.loads(await response.text())
-                    status = result.get('message')
+                    status = result.get("message")
                     if status == "Success":
-                        webLink = result.get('data').get('dlLink')
-                        await request.edit(
-                            f"[{file_name} ({file_size})]({webLink})"
-                        )
+                        webLink = result.get("data").get("dlLink")
+                        await request.edit(f"[{file_name} ({file_size})]({webLink})")
                         return
                     else:
                         await request.edit(
@@ -355,10 +352,8 @@ async def uptobox(request, url: str) -> str:
                         )
                         return
             elif status == "Success":
-                webLink = result.get('data').get('dlLink')
-                await request.edit(
-                    f"[{file_name} ({file_size})]({webLink})"
-                )
+                webLink = result.get("data").get("dlLink")
+                await request.edit(f"[{file_name} ({file_size})]({webLink})")
                 return
             else:
                 await request.edit(

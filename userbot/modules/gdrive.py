@@ -77,7 +77,7 @@ if __ is not None:
                 try:
                     G_DRIVE_FOLDER_ID = __.split("folderview?id=")[1]
                 except IndexError:
-                    if 'http://' not in __ or 'https://' not in __:
+                    if "http://" not in __ or "https://" not in __:
                         if any(map(str.isdigit, __)):
                             _1 = True
                         else:
@@ -89,9 +89,7 @@ if __ is not None:
                         if True in [_1 or _2]:
                             pass
                         else:
-                            LOGS.info(
-                                "G_DRIVE_FOLDER_ID "
-                                "not a valid ID...")
+                            LOGS.info("G_DRIVE_FOLDER_ID " "not a valid ID...")
                             G_DRIVE_FOLDER_ID = None
                     else:
                         LOGS.info("G_DRIVE_FOLDER_ID " "not a valid URL...")
@@ -775,17 +773,13 @@ async def lists(gdrive):
             if len(result) >= page_size:
                 break
 
-            file_name = files.get('name')
-            if files.get('mimeType') == 'application/vnd.google-apps.folder':
-                link = files.get('webViewLink')
-                message += (
-                    f"📁️ • [{file_name}]({link})\n"
-                )
+            file_name = files.get("name")
+            if files.get("mimeType") == "application/vnd.google-apps.folder":
+                link = files.get("webViewLink")
+                message += f"📁️ • [{file_name}]({link})\n"
             else:
-                link = files.get('webContentLink')
-                message += (
-                    f"📄️ • [{file_name}]({link})\n"
-                )
+                link = files.get("webContentLink")
+                message += f"📄️ • [{file_name}]({link})\n"
             result.append(files)
         if len(result) >= page_size:
             break

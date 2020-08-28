@@ -1297,7 +1297,7 @@ async def ugay(faggot):
 @register(outgoing=True, pattern="^.taco$")
 async def taco(tacoo):
     if not tacoo.text[0].isalpha() and tacoo.text[0] not in ("/", "#", "@", "!"):
-        await tacoo.edit("\n{\__/}" "\n(●_●)" "\n( >🌮 Want a taco?")
+        await tacoo.edit(r"\n{\__/}" "\n(●_●)" "\n( >🌮 Want a taco?")
 
 
 @register(outgoing=True, pattern="^.paw$")
