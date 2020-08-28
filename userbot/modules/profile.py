@@ -8,22 +8,17 @@
 import os
 
 from telethon.errors import ImageProcessFailedError, PhotoCropSizeSmallError
-
-from telethon.errors.rpcerrorlist import (PhotoExtInvalidError,
-                                          UsernameOccupiedError)
-
-from telethon.tl.functions.account import (UpdateProfileRequest,
-                                           UpdateUsernameRequest)
-
+from telethon.errors.rpcerrorlist import PhotoExtInvalidError, UsernameOccupiedError
+from telethon.tl.functions.account import UpdateProfileRequest, UpdateUsernameRequest
 from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest
+from telethon.tl.functions.photos import (
+    DeletePhotosRequest,
+    GetUserPhotosRequest,
+    UploadProfilePhotoRequest,
+)
+from telethon.tl.types import Channel, Chat, InputPhoto, MessageMediaPhoto, User
 
-from telethon.tl.functions.photos import (DeletePhotosRequest,
-                                          GetUserPhotosRequest,
-                                          UploadProfilePhotoRequest)
-
-from telethon.tl.types import InputPhoto, MessageMediaPhoto, User, Chat, Channel
-
-from userbot import bot, CMD_HELP
+from userbot import CMD_HELP, bot
 from userbot.events import register
 
 # ====================== CONSTANT ===============================
@@ -62,8 +57,7 @@ async def update_name(name):
         firstname = namesplit[0]
         lastname = namesplit[1]
 
-    await name.client(
-        UpdateProfileRequest(first_name=firstname, last_name=lastname))
+    await name.client(UpdateProfileRequest(first_name=firstname, last_name=lastname))
     await name.edit(NAME_OK)
 
 
@@ -76,7 +70,7 @@ async def set_profilepic(propic):
     if replymsg.media:
         if isinstance(replymsg.media, MessageMediaPhoto):
             photo = await propic.client.download_media(message=replymsg.photo)
-        elif "image" in replymsg.media.document.mime_type.split('/'):
+        elif "image" in replymsg.media.document.mime_type.split("/"):
             photo = await propic.client.download_file(replymsg.media.document)
         else:
             await propic.edit(INVALID_MEDIA)
@@ -84,8 +78,8 @@ async def set_profilepic(propic):
     if photo:
         try:
             await propic.client(
-                UploadProfilePhotoRequest(await
-                                          propic.client.upload_file(photo)))
+                UploadProfilePhotoRequest(await propic.client.upload_file(photo))
+            )
             os.remove(photo)
             await propic.edit(PP_CHANGED)
         except PhotoCropSizeSmallError:
@@ -159,7 +153,7 @@ async def remove_profilepic(delpfp):
     """ For .delpfp command, delete your current profile picture in Telegram. """
     await delpfp.edit("`Processing...`")
     group = delpfp.text[8:]
-    if group == 'all':
+    if group == "all":
         lim = 0
     elif group.isdigit():
         lim = int(group)
@@ -167,24 +161,24 @@ async def remove_profilepic(delpfp):
         lim = 1
 
     pfplist = await delpfp.client(
-        GetUserPhotosRequest(user_id=delpfp.from_id,
-                             offset=0,
-                             max_id=0,
-                             limit=lim))
+        GetUserPhotosRequest(user_id=delpfp.from_id, offset=0, max_id=0, limit=lim)
+    )
     input_photos = []
     for sep in pfplist.photos:
         input_photos.append(
-            InputPhoto(id=sep.id,
-                       access_hash=sep.access_hash,
-                       file_reference=sep.file_reference))
+            InputPhoto(
+                id=sep.id,
+                access_hash=sep.access_hash,
+                file_reference=sep.file_reference,
+            )
+        )
     await delpfp.client(DeletePhotosRequest(id=input_photos))
-    await delpfp.edit(
-        f"`Successfully deleted {len(input_photos)} profile picture(s).`")
+    await delpfp.edit(f"`Successfully deleted {len(input_photos)} profile picture(s).`")
 
 
-CMD_HELP.update({
-    "profile":
-    ".username <new_username>\
+CMD_HELP.update(
+    {
+        "profile": ".username <new_username>\
 \nUsage: Changes your Telegram username.\
 \n\n.name <firstname> or .name <firstname> <lastname>\
 \nUsage: Changes your Telegram name.(First and last name will get split by the first space)\
@@ -198,4 +192,5 @@ CMD_HELP.update({
 \nUsage: Shows usernames reserved by you.\
 \n\n.count\
 \nUsage: Counts your groups, chats, bots etc..."
-})
+    }
+)

@@ -8,17 +8,17 @@
 # Based code + improve from AdekMaulana and aidilaryanto
 
 import asyncio
-from asyncio.exceptions import TimeoutError
-import re
-import random
-from telethon import events
 import os
-from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.types import (
-    MessageMediaPhoto)
-from userbot import bot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
-from userbot.events import register
+import random
+import re
+from asyncio.exceptions import TimeoutError
 
+from telethon import events
+from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.types import MessageMediaPhoto
+
+from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
+from userbot.events import register
 
 EMOJI_PATTERN = re.compile(
     "["
@@ -33,7 +33,8 @@ EMOJI_PATTERN = re.compile(
     "\U0001FA00-\U0001FA6F"  # Chess Symbols
     "\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
     "\U00002702-\U000027B0"  # Dingbats
-    "]+")
+    "]+"
+)
 
 
 @register(outgoing=True, pattern="^.mmf(?: |$)(.*)")
@@ -82,10 +83,10 @@ async def mim(event):
             if event.reply_to_msg_id:
                 file_name = "meme.png"
                 reply_message = await event.get_reply_message()
-                downloaded_file_name = os.path.join(
-                    TEMP_DOWNLOAD_DIRECTORY, file_name)
+                downloaded_file_name = os.path.join(TEMP_DOWNLOAD_DIRECTORY, file_name)
                 downloaded_file_name = await bot.download_media(
-                    reply_message, downloaded_file_name,
+                    reply_message,
+                    downloaded_file_name,
                 )
                 if os.path.exists(downloaded_file_name):
                     await bot.send_file(
@@ -100,10 +101,10 @@ async def mim(event):
                     await event.edit("File Not Found {}".format(input_str))
             response = await bot_conv.get_response()
             files_name = "memes.webp"
-            download_file_name = os.path.join(
-                TEMP_DOWNLOAD_DIRECTORY, files_name)
+            download_file_name = os.path.join(TEMP_DOWNLOAD_DIRECTORY, files_name)
             await bot.download_media(
-                response.media, download_file_name,
+                response.media,
+                download_file_name,
             )
             await bot.send_file(  # pylint:disable=E0602
                 event.chat_id,
@@ -157,29 +158,31 @@ async def quotess(qotli):
         async with bot.conversation(chat) as conv:
             try:
                 response = conv.wait_event(
-                    events.NewMessage(
-                        incoming=True,
-                        from_users=1031952739))
+                    events.NewMessage(incoming=True, from_users=1031952739)
+                )
                 msg = await bot.forward_messages(chat, reply_message)
                 response = await response
                 """ - don't spam notif - """
                 await bot.send_read_acknowledge(conv.chat_id)
             except YouBlockedUserError:
-                return await qotli.reply("```Please unblock @QuotLyBot and try again```")
+                return await qotli.reply(
+                    "```Please unblock @QuotLyBot and try again```"
+                )
             if response.text.startswith("Hi!"):
-                await qotli.edit("```Can you kindly disable your forward privacy settings for good?```")
+                await qotli.edit(
+                    "```Can you kindly disable your forward privacy settings for good?```"
+                )
             else:
                 await qotli.delete()
                 await bot.forward_messages(qotli.chat_id, response.message)
                 await bot.send_read_acknowledge(qotli.chat_id)
                 """ - cleanup chat after completed - """
-                await qotli.client.delete_messages(conv.chat_id,
-                                                   [msg.id, response.id])
+                await qotli.client.delete_messages(conv.chat_id, [msg.id, response.id])
     except TimeoutError:
         await qotli.edit()
 
 
-@register(outgoing=True, pattern=r'^.hz(:? |$)(.*)?')
+@register(outgoing=True, pattern=r"^.hz(:? |$)(.*)?")
 async def hazz(hazmat):
     await hazmat.edit("`Sending information...`")
     level = hazmat.pattern_match.group(2)
@@ -204,16 +207,12 @@ async def hazz(hazmat):
             msg = await conv.send_message(reply_message)
             if level:
                 m = f"/hazmat {level}"
-                msg_reply = await conv.send_message(
-                    m,
-                    reply_to=msg.id)
+                msg_reply = await conv.send_message(m, reply_to=msg.id)
                 r = await conv.get_response()
                 response = await conv.get_response()
             elif reply_message.gif:
                 m = f"/hazmat"
-                msg_reply = await conv.send_message(
-                    m,
-                    reply_to=msg.id)
+                msg_reply = await conv.send_message(m, reply_to=msg.id)
                 r = await conv.get_response()
                 response = await conv.get_response()
             else:
@@ -226,33 +225,31 @@ async def hazz(hazmat):
         if response.text.startswith("I can't"):
             await hazmat.edit("`Can't handle this GIF...`")
             await hazmat.client.delete_messages(
-                conv.chat_id,
-                [msg.id, response.id, r.id, msg_reply.id])
+                conv.chat_id, [msg.id, response.id, r.id, msg_reply.id]
+            )
             return
         else:
             downloaded_file_name = await hazmat.client.download_media(
-                response.media,
-                TEMP_DOWNLOAD_DIRECTORY
+                response.media, TEMP_DOWNLOAD_DIRECTORY
             )
             await hazmat.client.send_file(
                 hazmat.chat_id,
                 downloaded_file_name,
                 force_document=False,
-                reply_to=message_id_to_reply
+                reply_to=message_id_to_reply,
             )
             """ - cleanup chat after completed - """
             if msg_reply is not None:
                 await hazmat.client.delete_messages(
-                    conv.chat_id,
-                    [msg.id, msg_reply.id, r.id, response.id])
+                    conv.chat_id, [msg.id, msg_reply.id, r.id, response.id]
+                )
             else:
-                await hazmat.client.delete_messages(conv.chat_id,
-                                                    [msg.id, response.id])
+                await hazmat.client.delete_messages(conv.chat_id, [msg.id, response.id])
     await hazmat.delete()
     return os.remove(downloaded_file_name)
 
 
-@register(outgoing=True, pattern=r'^.df(:? |$)([1-8])?')
+@register(outgoing=True, pattern=r"^.df(:? |$)([1-8])?")
 async def fryerrr(fry):
     await fry.edit("`Sending information...`")
     level = fry.pattern_match.group(2)
@@ -275,9 +272,7 @@ async def fryerrr(fry):
             msg = await conv.send_message(reply_message)
             if level:
                 m = f"/deepfry {level}"
-                msg_level = await conv.send_message(
-                    m,
-                    reply_to=msg.id)
+                msg_level = await conv.send_message(m, reply_to=msg.id)
                 r = await conv.get_response()
                 response = await conv.get_response()
             else:
@@ -291,25 +286,23 @@ async def fryerrr(fry):
             await fry.edit("`Please disable your forward privacy setting...`")
         else:
             downloaded_file_name = await fry.client.download_media(
-                response.media,
-                TEMP_DOWNLOAD_DIRECTORY
+                response.media, TEMP_DOWNLOAD_DIRECTORY
             )
             await fry.client.send_file(
                 fry.chat_id,
                 downloaded_file_name,
                 force_document=False,
-                reply_to=message_id_to_reply
+                reply_to=message_id_to_reply,
             )
             """ - cleanup chat after completed - """
             try:
                 msg_level
             except NameError:
-                await fry.client.delete_messages(conv.chat_id,
-                                                 [msg.id, response.id])
+                await fry.client.delete_messages(conv.chat_id, [msg.id, response.id])
             else:
                 await fry.client.delete_messages(
-                    conv.chat_id,
-                    [msg.id, response.id, r.id, msg_level.id])
+                    conv.chat_id, [msg.id, response.id, r.id, msg_level.id]
+                )
     await fry.delete()
     return os.remove(downloaded_file_name)
 
@@ -340,15 +333,15 @@ async def lastname(steal):
         if response.text.startswith("No records"):
             await steal.edit("```No records found for this user```")
             await steal.client.delete_messages(
-                conv.chat_id,
-                [msg.id, r.id, response.id])
+                conv.chat_id, [msg.id, r.id, response.id]
+            )
             return
         else:
             respond = await conv.get_response()
             await steal.edit(f"{response.message}")
         await steal.client.delete_messages(
-            conv.chat_id,
-            [msg.id, r.id, response.id, respond.id])
+            conv.chat_id, [msg.id, r.id, response.id, respond.id]
+        )
 
 
 @register(outgoing=True, pattern="^.waifu(?: |$)(.*)")
@@ -362,55 +355,64 @@ async def waifu(animu):
             return
     animus = [20, 32, 33, 40, 41, 42, 58]
     sticcers = await bot.inline_query(
-        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}")
-    await sticcers[0].click(animu.chat_id,
-                            reply_to=animu.reply_to_msg_id,
-                            silent=True if animu.is_reply else False,
-                            hide_via=True)
+        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}"
+    )
+    await sticcers[0].click(
+        animu.chat_id,
+        reply_to=animu.reply_to_msg_id,
+        silent=True if animu.is_reply else False,
+        hide_via=True,
+    )
     await animu.delete()
 
 
 def deEmojify(inputString: str) -> str:
-    return re.sub(EMOJI_PATTERN, '', inputString)
+    return re.sub(EMOJI_PATTERN, "", inputString)
 
 
-CMD_HELP.update({
-    "memify":
-        ".mmf texttop ; textbottom\
+CMD_HELP.update(
+    {
+        "memify": ".mmf texttop ; textbottom\
             \nUsage: Reply a sticker/image/gif and send with cmd."
-})
+    }
+)
 
-CMD_HELP.update({
-    "quotly":
-        ".q \
+CMD_HELP.update(
+    {
+        "quotly": ".q \
           \nUsage: Enhance ur text to sticker."
-})
+    }
+)
 
-CMD_HELP.update({
-    "hazmat":
-        ".hz or .hz [flip, x2, rotate (degree), background (number), black]"
-    "\nUsage: Reply to a image / sticker to suit up!"
-    "\n@hazmat_suit_bot"
-})
+CMD_HELP.update(
+    {
+        "hazmat": ".hz or .hz [flip, x2, rotate (degree), background (number), black]"
+        "\nUsage: Reply to a image / sticker to suit up!"
+        "\n@hazmat_suit_bot"
+    }
+)
 
-CMD_HELP.update({
-    "deepfry":
-        ".df or .df [level(1-8)]"
-    "\nUsage: deepfry image/sticker from the reply."
-    "\n@image_deepfrybot"
-})
+CMD_HELP.update(
+    {
+        "deepfry": ".df or .df [level(1-8)]"
+        "\nUsage: deepfry image/sticker from the reply."
+        "\n@image_deepfrybot"
+    }
+)
 
 
-CMD_HELP.update({
-    "sangmata":
-        ".sg \
+CMD_HELP.update(
+    {
+        "sangmata": ".sg \
           \nUsage: Steal ur or friend name."
-})
+    }
+)
 
 
-CMD_HELP.update({
-    "waifu":
-        ".waifu \
+CMD_HELP.update(
+    {
+        "waifu": ".waifu \
           \nUsage: Enchance your text with beautiful anime girl templates. \
           \n@StickerizerBot"
-})
+    }
+)

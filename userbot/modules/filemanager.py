@@ -14,7 +14,6 @@ from userbot import CMD_HELP
 from userbot.events import register
 from userbot.utils import humanbytes
 
-
 MAX_MESSAGE_SIZE_LIMIT = 4095
 
 
@@ -124,8 +123,9 @@ async def lst(event):
         await event.edit(msg)
 
 
-CMD_HELP.update({
-    "file":
-        ".ls <directory>"
+CMD_HELP.update(
+    {
+        "file": ".ls <directory>"
         "\nUsage: Get an information about data covid-19 in your country."
-})
+    }
+)

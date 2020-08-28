@@ -6,7 +6,8 @@
 """ Userbot module containing userid, chatid and log commands"""
 
 from asyncio import sleep
-from userbot import CMD_HELP, BOTLOG, BOTLOG_CHATID, bot
+
+from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from userbot.events import register
 from userbot.modules.admin import get_user_from_event
 
@@ -28,8 +29,7 @@ async def useridgetter(target):
                 name = "@" + message.forward.sender.username
             else:
                 name = "*" + message.forward.sender.first_name + "*"
-        await target.edit("**Name:** {} \n**User ID:** `{}`".format(
-            name, user_id))
+        await target.edit("**Name:** {} \n**User ID:** `{}`".format(name, user_id))
 
 
 @register(outgoing=True, pattern="^.link(?: |$)(.*)")
@@ -41,8 +41,9 @@ async def permalink(mention):
     if custom:
         await mention.edit(f"[{custom}](tg://user?id={user.id})")
     else:
-        tag = user.first_name.replace("\u2060",
-                                      "") if user.first_name else user.username
+        tag = (
+            user.first_name.replace("\u2060", "") if user.first_name else user.username
+        )
         await mention.edit(f"[{tag}](tg://user?id={user.id})")
 
 
@@ -77,7 +78,7 @@ async def log(log_text):
 async def kickme(leave):
     """ Basically it's .kickme command """
     await leave.edit("Nope, no, no, I go away")
-    await leave.client.kick_participant(leave.chat_id, 'me')
+    await leave.client.kick_participant(leave.chat_id, "me")
 
 
 @register(outgoing=True, pattern="^.unmutechat$")
@@ -86,7 +87,7 @@ async def unmute_chat(unm_e):
     try:
         from userbot.modules.sql_helper.keep_read_sql import unkread
     except AttributeError:
-        await unm_e.edit('`Running on Non-SQL Mode!`')
+        await unm_e.edit("`Running on Non-SQL Mode!`")
         return
     unkread(str(unm_e.chat_id))
     await unm_e.edit("```Unmuted this chat Successfully```")
@@ -109,8 +110,8 @@ async def mute_chat(mute_e):
     await mute_e.delete()
     if BOTLOG:
         await mute_e.client.send_message(
-            BOTLOG_CHATID,
-            str(mute_e.chat_id) + " was silenced.")
+            BOTLOG_CHATID, str(mute_e.chat_id) + " was silenced."
+        )
 
 
 @register(incoming=True, disable_errors=True)
@@ -135,7 +136,7 @@ regexNinja = False
 async def sedNinja(event):
     """For regex-ninja module, auto delete command starting with s/"""
     if regexNinja:
-        await sleep(.5)
+        await sleep(0.5)
         await event.delete()
 
 
@@ -155,9 +156,9 @@ async def sedNinjaToggle(event):
         await event.delete()
 
 
-CMD_HELP.update({
-    "chat":
-    ".chatid\
+CMD_HELP.update(
+    {
+        "chat": ".chatid\
 \nUsage: Fetches the current chat's ID\
 \n\n.userid\
 \nUsage: Fetches the ID of the user in reply, if its a forwarded message, finds the ID for the source.\
@@ -174,4 +175,5 @@ CMD_HELP.update({
 \n\n.regexninja on/off\
 \nUsage: Globally enable/disables the regex ninja module.\
 \nRegex Ninja module helps to delete the regex bot's triggering messages."
-})
+    }
+)

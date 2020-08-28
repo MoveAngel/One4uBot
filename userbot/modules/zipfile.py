@@ -6,12 +6,13 @@
 # Port from UniBorg to Userbot by yincen17
 
 import asyncio
-import zipfile
-from userbot.events import register
-from datetime import date
-import time
 import os
-from userbot import TEMP_DOWNLOAD_DIRECTORY, ZIP_DOWNLOAD_DIRECTORY, bot, CMD_HELP
+import time
+import zipfile
+from datetime import date
+
+from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, ZIP_DOWNLOAD_DIRECTORY, bot
+from userbot.events import register
 from userbot.utils import progress
 
 # ====================
@@ -111,7 +112,7 @@ async def upload_zip(up):
     input_str = up.pattern_match.group(1)
     curdate = today.strftime("%m%d%y")
     title = str(input_str) if input_str else "zipfile" + f"{curdate}"
-    zipf = zipfile.ZipFile(title + '.zip', 'w', zipfile.ZIP_DEFLATED)
+    zipf = zipfile.ZipFile(title + ".zip", "w", zipfile.ZIP_DEFLATED)
     zipdir(ZIP_DOWNLOAD_DIRECTORY, zipf)
     zipf.close()
     c_time = time.time()
@@ -148,8 +149,7 @@ def zipdir(path, ziph):
 
 CMD_HELP.update(
     {
-        "zipfile":
-        ".compress **[optional: <reply to file>]**\
+        "zipfile": ".compress **[optional: <reply to file>]**\
             \nUsage: make files to zip.\
             \n.addzip **<reply to file>**\
             \nUsage: add files to zip list.\

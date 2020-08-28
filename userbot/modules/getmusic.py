@@ -6,21 +6,23 @@
 # Vsong ported by AnggaR69S
 # All rights reserved.
 
+import asyncio
 import glob
 import os
-import asyncio
-import requests
 import time
 from asyncio.exceptions import TimeoutError
+
+import requests
 from bs4 import BeautifulSoup
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
+from pylast import User
 from telethon import events
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from userbot import bot, CMD_HELP, lastfm, LASTFM_USERNAME
 from telethon.tl.types import DocumentAttributeVideo
+
+from userbot import CMD_HELP, LASTFM_USERNAME, bot, lastfm
 from userbot.events import register
-from pylast import User
 from userbot.utils import progress
 
 # For getvideosong
@@ -32,9 +34,8 @@ def getmusicvideo(cat):
         "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
     }
     html = requests.get(
-        "https://www.youtube.com/results?search_query=" +
-        search,
-        headers=headers).text
+        "https://www.youtube.com/results?search_query=" + search, headers=headers
+    ).text
     soup = BeautifulSoup(html, "html.parser")
     for link in soup.find_all("a"):
         if "/watch?v=" in link.get("href"):
@@ -53,9 +54,7 @@ async def _(event):
     if event.pattern_match.group(1) == "now":
         playing = User(LASTFM_USERNAME, lastfm).get_now_playing()
         if playing is None:
-            return await event.edit(
-                "`Error: No current scrobble found.`"
-            )
+            return await event.edit("`Error: No current scrobble found.`")
         artist = playing.get_artist()
         song = playing.get_title()
     else:
@@ -128,9 +127,7 @@ async def _(event):
     if event.pattern_match.group(1) == "now":
         playing = User(LASTFM_USERNAME, lastfm).get_now_playing()
         if playing is None:
-            return await event.edit(
-                "`Error: No scrobbling data found.`"
-            )
+            return await event.edit("`Error: No scrobbling data found.`")
         artist = playing.get_artist()
         song = playing.get_title()
     else:
@@ -144,12 +141,14 @@ async def _(event):
             await asyncio.sleep(2)
             await event.edit("`Downloading...`")
             try:
-                response = conv.wait_event(events.NewMessage(
-                    incoming=True, from_users=752979930))
+                response = conv.wait_event(
+                    events.NewMessage(incoming=True, from_users=752979930)
+                )
                 msg = await bot.send_message(chat, track)
                 respond = await response
-                res = conv.wait_event(events.NewMessage(
-                    incoming=True, from_users=752979930))
+                res = conv.wait_event(
+                    events.NewMessage(incoming=True, from_users=752979930)
+                )
                 r = await res
                 """- don't spam notif -"""
                 await bot.send_read_acknowledge(conv.chat_id)
@@ -157,12 +156,12 @@ async def _(event):
                 await event.reply("`Unblock `@SpotifyMusicDownloaderBot` and retry`")
                 return
             await bot.forward_messages(event.chat_id, respond.message)
-        await event.client.delete_messages(
-            conv.chat_id, [msg.id, r.id, respond.id]
-        )
+        await event.client.delete_messages(conv.chat_id, [msg.id, r.id, respond.id])
         await event.delete()
     except TimeoutError:
-        return await event.edit("`Error: `@SpotifyMusicDownloaderBot` is not responding!.`")
+        return await event.edit(
+            "`Error: `@SpotifyMusicDownloaderBot` is not responding!.`"
+        )
 
 
 @register(outgoing=True, pattern=r"^\.vsong(?: |$)(.*)")
@@ -226,19 +225,19 @@ async def _(event):
     os.system("rm -rf *.webm")
 
 
-CMD_HELP.update({
-    "getmusic":
-    ".songn <Artist - Song Title>"
-    "\nUsage: Download music by name (@WooMaiBot)"
-    "\n\n.songl <Spotify/Deezer Link>"
-    "\nUsage: Download music by link (@MusicHuntersBot)"
-    "\n\n.songf <Artist - Song Title>"
-    "\nUsage: Download music by name (@SpotifyMusicDownloaderBot)"
-    "\n\n.songn now"
-    "\nUsage: Download current LastFM scrobble with @WooMaiBot"
-    "\n\n.songf now"
-    "\nUsage: Download current LastFM scrobble with @SpotifyMusicDownloaderBot"
-    "\n\n.vsong <Artist - Song Title>"
-    "\nUsage: Finding and uploading videoclip.\n"
-
-})
+CMD_HELP.update(
+    {
+        "getmusic": ".songn <Artist - Song Title>"
+        "\nUsage: Download music by name (@WooMaiBot)"
+        "\n\n.songl <Spotify/Deezer Link>"
+        "\nUsage: Download music by link (@MusicHuntersBot)"
+        "\n\n.songf <Artist - Song Title>"
+        "\nUsage: Download music by name (@SpotifyMusicDownloaderBot)"
+        "\n\n.songn now"
+        "\nUsage: Download current LastFM scrobble with @WooMaiBot"
+        "\n\n.songf now"
+        "\nUsage: Download current LastFM scrobble with @SpotifyMusicDownloaderBot"
+        "\n\n.vsong <Artist - Song Title>"
+        "\nUsage: Finding and uploading videoclip.\n"
+    }
+)

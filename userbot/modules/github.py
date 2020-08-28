@@ -4,13 +4,15 @@
 # you may not use this file except in compliance with the License.
 #
 
-import aiohttp
 import os
 import time
-from github import Github
 from datetime import datetime
+
+import aiohttp
+from github import Github
+
+from userbot import CMD_HELP, GIT_REPO_NAME, GITHUB_ACCESS_TOKEN, bot
 from userbot.events import register
-from userbot import CMD_HELP, GITHUB_ACCESS_TOKEN, GIT_REPO_NAME, bot
 
 GIT_TEMP_DIR = "/One4uBot/temp/"
 
@@ -40,7 +42,8 @@ async def github(event):
                 f"URL: {url}\n"
                 f"Company: `{company}`\n"
                 f"Created at: `{created_at}`\n"
-                f"More info : [Here](https://api.github.com/users/{username}/events/public)")
+                f"More info : [Here](https://api.github.com/users/{username}/events/public)"
+            )
 
             if not result.get("repos_url", None):
                 return await event.edit(REPLY)
@@ -78,8 +81,7 @@ async def download(event):
         time.time()
         print("Downloading to TEMP directory")
         downloaded_file_name = await bot.download_media(
-            reply_message.media,
-            GIT_TEMP_DIR
+            reply_message.media, GIT_TEMP_DIR
         )
     except Exception as e:
         await mone.edit(str(e))
@@ -87,7 +89,9 @@ async def download(event):
         end = datetime.now()
         ms = (end - start).seconds
         await event.delete()
-        await mone.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms))
+        await mone.edit(
+            "Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms)
+        )
         await mone.edit("Committing to Github....")
         await git_commit(downloaded_file_name, mone)
 
@@ -96,7 +100,7 @@ async def git_commit(file_name, mone):
     content_list = []
     access_token = GITHUB_ACCESS_TOKEN
     g = Github(access_token)
-    file = open(file_name, "r", encoding='utf-8')
+    file = open(file_name, "r", encoding="utf-8")
     commit_data = file.read()
     repo = g.get_repo(GIT_REPO_NAME)
     print(repo.name)
@@ -116,24 +120,26 @@ async def git_commit(file_name, mone):
         print(file_name)
         try:
             repo.create_file(
-                file_name,
-                "Uploaded New Plugin",
-                commit_data,
-                branch="sql-extended")
+                file_name, "Uploaded New Plugin", commit_data, branch="sql-extended"
+            )
             print("Committed File")
             ccess = GIT_REPO_NAME
             ccess = ccess.strip()
-            await mone.edit(f"`Commited On Your Github Repo`\n\n[Your Modules](https://github.com/{ccess}/tree/sql-extended/userbot/modules/)")
+            await mone.edit(
+                f"`Commited On Your Github Repo`\n\n[Your Modules](https://github.com/{ccess}/tree/sql-extended/userbot/modules/)"
+            )
         except BaseException:
             print("Cannot Create Plugin")
             await mone.edit("Cannot Upload Plugin")
     else:
         return await mone.edit("`Committed Suicide`")
 
-CMD_HELP.update({
-    "github":
-    ".git <username>"
-    "\nUsage: Like .whois but for GitHub usernames."
-    "\n\n.commit <reply file>"
-    "\nUsage: GITHUB File Uploader Plugin for userbot. Heroku Automation should be Enabled."
-})
+
+CMD_HELP.update(
+    {
+        "github": ".git <username>"
+        "\nUsage: Like .whois but for GitHub usernames."
+        "\n\n.commit <reply file>"
+        "\nUsage: GITHUB File Uploader Plugin for userbot. Heroku Automation should be Enabled."
+    }
+)
