@@ -14,13 +14,16 @@ import random
 import re
 from asyncio.exceptions import TimeoutError
 
-from PIL import Image, ImageEnhance, ImageOps, ImageFont, ImageDraw
-from telethon import events
+from glitch_this import ImageGlitcher
+from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
+from telethon import events, functions, types
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.types import DocumentAttributeFilename
 
 from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
 from userbot.events import register
+
+Glitched = TEMP_DOWNLOAD_DIRECTORY + "glitch.gif"
 
 EMOJI_PATTERN = re.compile(
     "["
@@ -39,7 +42,75 @@ EMOJI_PATTERN = re.compile(
 )
 
 
-@register(outgoing=True, pattern="^.mmf(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.glitch(?: |$)(.*)")
+async def glitch(event):
+    if not event.reply_to_msg_id:
+        await event.edit("`I Wont Glitch A Ghost!`")
+        return
+    reply_message = await event.get_reply_message()
+    if not reply_message.media:
+        await event.edit("`reply to a image/sticker`")
+        return
+    await bot.download_file(reply_message.media)
+    await event.edit("`Downloading Media..`")
+    if event.is_reply:
+        data = await check_media(reply_message)
+        if isinstance(data, bool):
+            await event.edit("`Unsupported Files...`")
+            return
+    else:
+        await event.edit("`Reply to Any Media Sur`")
+        return
+
+    try:
+        value = int(event.pattern_match.group(1))
+        if value > 8:
+            raise ValueError
+    except ValueError:
+        value = 2
+    await event.edit("```Glitching This Media```")
+    await asyncio.sleep(2)
+    file_name = "glitch.png"
+    to_download_directory = TEMP_DOWNLOAD_DIRECTORY
+    downloaded_file_name = os.path.join(to_download_directory, file_name)
+    downloaded_file_name = await bot.download_media(
+        reply_message,
+        downloaded_file_name,
+    )
+    glitch_file = downloaded_file_name
+    glitcher = ImageGlitcher()
+    img = Image.open(glitch_file)
+    glitch_img = glitcher.glitch_image(img, value, color_offset=True, gif=True)
+    DURATION = 200
+    LOOP = 0
+    glitch_img[0].save(
+        Glitched,
+        format="GIF",
+        append_images=glitch_img[1:],
+        save_all=True,
+        duration=DURATION,
+        loop=LOOP,
+    )
+    await event.edit("`Uploading Glitched Media...`")
+    nosave = await event.client.send_file(
+                 event.chat_id, Glitched, force_document=False, reply_to=event.reply_to_msg_id
+             )
+    await event.delete()
+    os.remove(Glitched)
+    await bot(
+            functions.messages.SaveGifRequest(
+                id=types.InputDocument(
+                    id=nosave.media.document.id,
+                    access_hash=nosave.media.document.access_hash,
+                    file_reference=nosave.media.document.file_reference,
+                ),
+                unsave=True,
+            )
+        )
+    os.remove(glitch_file)
+
+
+@register(outgoing=True, pattern=r"^\.mmf(?: |$)(.*)")
 async def mim(event):
     if not event.reply_to_msg_id:
         await event.edit(
@@ -374,6 +445,14 @@ async def waifu(animu):
 def deEmojify(inputString: str) -> str:
     return re.sub(EMOJI_PATTERN, "", inputString)
 
+
+CMD_HELP.update(
+    {
+        "glitch": ".glitch <1-8>\
+            \nUsage: Reply a sticker/image and send with cmd.\
+            \nvalue is range 1-8 if doenst it will give default value which is 2"
+    }
+)
 
 CMD_HELP.update(
     {
