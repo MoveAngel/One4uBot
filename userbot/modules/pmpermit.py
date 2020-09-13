@@ -39,11 +39,15 @@ async def permitpm(event):
     if not PM_AUTO_BAN:
         return
     self_user = await event.client.get_me()
-    if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and not (
-            await event.get_sender()).bot:
+    if (
+        event.is_private
+        and event.chat_id != 777000
+        and event.chat_id != self_user.id
+        and not (await event.get_sender()).bot
+    ):
         try:
-            from userbot.modules.sql_helper.pm_permit_sql import is_approved
             from userbot.modules.sql_helper.globals import gvarstatus
+            from userbot.modules.sql_helper.pm_permit_sql import is_approved
         except AttributeError:
             return
         apprv = is_approved(event.chat_id)
@@ -66,9 +70,8 @@ async def permitpm(event):
                 # Send the Unapproved Message again
                 if event.text != prevmsg:
                     async for message in event.client.iter_messages(
-                            event.chat_id,
-                            from_user='me',
-                            search=UNAPPROVED_MSG):
+                        event.chat_id, from_user="me", search=UNAPPROVED_MSG
+                    ):
                         await message.delete()
                     await event.reply(f"`{UNAPPROVED_MSG}`")
             else:
@@ -108,9 +111,12 @@ async def permitpm(event):
                     name0 = str(name.first_name)
                     await event.client.send_message(
                         BOTLOG_CHATID,
-                        "[" + name0 + "](tg://user?id=" +
-                        str(event.chat_id) + ")" +
-                        " was just another retarded nibba",
+                        "["
+                        + name0
+                        + "](tg://user?id="
+                        + str(event.chat_id)
+                        + ")"
+                        + " was just another retarded nibba",
                     )
 
 
@@ -120,12 +126,15 @@ async def auto_accept(event):
     if not PM_AUTO_BAN:
         return
     self_user = await event.client.get_me()
-    if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and not (
-            await event.get_sender()).bot:
+    if (
+        event.is_private
+        and event.chat_id != 777000
+        and event.chat_id != self_user.id
+        and not (await event.get_sender()).bot
+    ):
         try:
-            from userbot.modules.sql_helper.pm_permit_sql import is_approved
-            from userbot.modules.sql_helper.pm_permit_sql import approve
             from userbot.modules.sql_helper.globals import gvarstatus
+            from userbot.modules.sql_helper.pm_permit_sql import approve, is_approved
         except AttributeError:
             return
 
@@ -140,10 +149,13 @@ async def auto_accept(event):
         if isinstance(chat, User):
             if is_approved(event.chat_id) or chat.bot:
                 return
-            async for message in event.client.iter_messages(event.chat_id,
-                                                            reverse=True,
-                                                            limit=1):
-                if message.text is not UNAPPROVED_MSG and message.from_id == self_user.id:
+            async for message in event.client.iter_messages(
+                event.chat_id, reverse=True, limit=1
+            ):
+                if (
+                    message.text is not UNAPPROVED_MSG
+                    and message.from_id == self_user.id
+                ):
                     try:
                         approve(event.chat_id)
                     except IntegrityError:
@@ -152,8 +164,9 @@ async def auto_accept(event):
                 if is_approved(event.chat_id) and BOTLOG:
                     await event.client.send_message(
                         BOTLOG_CHATID,
-                        "#AUTO-APPROVED\n" + "User: " +
-                        f"[{chat.first_name}](tg://user?id={chat.id})",
+                        "#AUTO-APPROVED\n"
+                        + "User: "
+                        + f"[{chat.first_name}](tg://user?id={chat.id})",
                     )
 
 
@@ -185,8 +198,8 @@ async def notifon(non_event):
 async def approvepm(apprvpm):
     """ For .approve command, give someone the permissions to PM you. """
     try:
-        from userbot.modules.sql_helper.pm_permit_sql import approve
         from userbot.modules.sql_helper.globals import gvarstatus
+        from userbot.modules.sql_helper.pm_permit_sql import approve
     except AttributeError:
         await apprvpm.edit("`Running on Non-SQL mode!`")
         return
@@ -210,9 +223,9 @@ async def approvepm(apprvpm):
     else:
         UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
 
-    async for message in apprvpm.client.iter_messages(apprvpm.chat_id,
-                                                      from_user='me',
-                                                      search=UNAPPROVED_MSG):
+    async for message in apprvpm.client.iter_messages(
+        apprvpm.chat_id, from_user="me", search=UNAPPROVED_MSG
+    ):
         await message.delete()
 
     try:
@@ -250,7 +263,8 @@ async def disapprovepm(disapprvpm):
         name0 = str(aname.first_name)
 
     await disapprvpm.edit(
-        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`")
+        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`"
+    )
 
     if BOTLOG:
         await disapprvpm.client.send_message(
@@ -280,6 +294,7 @@ async def blockpm(block):
 
     try:
         from userbot.modules.sql_helper.pm_permit_sql import dissprove
+
         dissprove(uid)
     except AttributeError:
         pass
@@ -304,8 +319,7 @@ async def unblockpm(unblock):
     if BOTLOG:
         await unblock.client.send_message(
             BOTLOG_CHATID,
-            f"[{name0}](tg://user?id={replied_user.id})"
-            " was unblocc'd!.",
+            f"[{name0}](tg://user?id={replied_user.id})" " was unblocc'd!.",
         )
 
 
@@ -347,8 +361,7 @@ async def add_pmsg(cust_msg):
 
         if BOTLOG:
             await cust_msg.client.send_message(
-                BOTLOG_CHATID,
-                f"***{status} Unapproved message :*** \n\n{msg}"
+                BOTLOG_CHATID, f"***{status} Unapproved message :*** \n\n{msg}"
             )
 
     if conf.lower() == "reset":
@@ -360,11 +373,14 @@ async def add_pmsg(cust_msg):
 
     if conf.lower() == "get":
         if custom_message is not None:
-            await cust_msg.edit("***This is your current unapproved message:***"
-                                f"\n\n{custom_message}")
+            await cust_msg.edit(
+                "***This is your current unapproved message:***" f"\n\n{custom_message}"
+            )
         else:
-            await cust_msg.edit("*You Have not set unapproved message yet*\n"
-                                f"Using default message: \n\n`{DEF_UNAPPROVED_MSG}`")
+            await cust_msg.edit(
+                "*You Have not set unapproved message yet*\n"
+                f"Using default message: \n\n`{DEF_UNAPPROVED_MSG}`"
+            )
 
 
 CMD_HELP.update(

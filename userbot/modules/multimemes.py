@@ -7,18 +7,17 @@
 #
 # Based code + improve from AdekMaulana and aidilaryanto
 
-import textwrap
 import asyncio
 import os
 import random
 import re
+import textwrap
 from asyncio.exceptions import TimeoutError
 
 from glitch_this import ImageGlitcher
-from PIL import Image, ImageDraw, ImageEnhance, ImageFont, ImageOps
+from PIL import Image, ImageDraw, ImageFont
 from telethon import events, functions, types
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-from telethon.tl.types import DocumentAttributeFilename
 
 from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
 from userbot.events import register
@@ -93,20 +92,20 @@ async def glitch(event):
     )
     await event.edit("`Uploading Glitched Media...`")
     nosave = await event.client.send_file(
-                 event.chat_id, Glitched, force_document=False, reply_to=event.reply_to_msg_id
-             )
+        event.chat_id, Glitched, force_document=False, reply_to=event.reply_to_msg_id
+    )
     await event.delete()
     os.remove(Glitched)
     await bot(
-            functions.messages.SaveGifRequest(
-                id=types.InputDocument(
-                    id=nosave.media.document.id,
-                    access_hash=nosave.media.document.access_hash,
-                    file_reference=nosave.media.document.file_reference,
-                ),
-                unsave=True,
-            )
+        functions.messages.SaveGifRequest(
+            id=types.InputDocument(
+                id=nosave.media.document.id,
+                access_hash=nosave.media.document.access_hash,
+                file_reference=nosave.media.document.file_reference,
+            ),
+            unsave=True,
         )
+    )
     os.remove(glitch_file)
 
 
@@ -137,14 +136,16 @@ async def mim(event):
         if event.reply_to_msg_id:
             file_name = "meme.jpg"
             to_download_directory = TEMP_DOWNLOAD_DIRECTORY
-            downloaded_file_name = os.path.join(
-                to_download_directory, file_name)
+            downloaded_file_name = os.path.join(to_download_directory, file_name)
             downloaded_file_name = await bot.download_media(
-                reply_message, downloaded_file_name,
+                reply_message,
+                downloaded_file_name,
             )
             dls_loc = downloaded_file_name
         webp_file = await draw_meme_text(dls_loc, text)
-        await event.client.send_file(event.chat_id, webp_file, reply_to=event.reply_to_msg_id)
+        await event.client.send_file(
+            event.chat_id, webp_file, reply_to=event.reply_to_msg_id
+        )
         await event.delete()
         os.remove(webp_file)
         os.remove(dls_loc)
@@ -155,60 +156,101 @@ async def draw_meme_text(image_path, text):
     os.remove(image_path)
     i_width, i_height = img.size
     m_font = ImageFont.truetype(
-        "resources/MutantAcademyStyle.ttf", int((70 / 640) * i_width))
+        "resources/MutantAcademyStyle.ttf", int((70 / 640) * i_width)
+    )
     if ";" in text:
         upper_text, lower_text = text.split(";")
     else:
         upper_text = text
-        lower_text = ''
+        lower_text = ""
     draw = ImageDraw.Draw(img)
     current_h, pad = 10, 5
     if upper_text:
         for u_text in textwrap.wrap(upper_text, width=15):
             u_width, u_height = draw.textsize(u_text, font=m_font)
 
-            draw.text(xy=(((i_width - u_width) / 2) - 1, int((current_h / 640)
-                                                             * i_width)), text=u_text, font=m_font, fill=(0, 0, 0))
-            draw.text(xy=(((i_width - u_width) / 2) + 1, int((current_h / 640)
-                                                             * i_width)), text=u_text, font=m_font, fill=(0, 0, 0))
-            draw.text(xy=((i_width - u_width) / 2,
-                          int(((current_h / 640) * i_width)) - 1),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0,
-                            0,
-                            0))
-            draw.text(xy=(((i_width - u_width) / 2),
-                          int(((current_h / 640) * i_width)) + 1),
-                      text=u_text,
-                      font=m_font,
-                      fill=(0,
-                            0,
-                            0))
+            draw.text(
+                xy=(((i_width - u_width) / 2) - 1, int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(((i_width - u_width) / 2) + 1, int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=((i_width - u_width) / 2, int(((current_h / 640) * i_width)) - 1),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
+            draw.text(
+                xy=(((i_width - u_width) / 2), int(((current_h / 640) * i_width)) + 1),
+                text=u_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
 
-            draw.text(xy=((i_width - u_width) / 2, int((current_h / 640)
-                                                       * i_width)), text=u_text, font=m_font, fill=(255, 255, 255))
+            draw.text(
+                xy=((i_width - u_width) / 2, int((current_h / 640) * i_width)),
+                text=u_text,
+                font=m_font,
+                fill=(255, 255, 255),
+            )
             current_h += u_height + pad
     if lower_text:
         for l_text in textwrap.wrap(lower_text, width=15):
             u_width, u_height = draw.textsize(l_text, font=m_font)
 
             draw.text(
-                xy=(((i_width - u_width) / 2) - 1, i_height - u_height - int((20 / 640) * i_width)),
-                text=l_text, font=m_font, fill=(0, 0, 0))
+                xy=(
+                    ((i_width - u_width) / 2) - 1,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
             draw.text(
-                xy=(((i_width - u_width) / 2) + 1, i_height - u_height - int((20 / 640) * i_width)),
-                text=l_text, font=m_font, fill=(0, 0, 0))
+                xy=(
+                    ((i_width - u_width) / 2) + 1,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
             draw.text(
-                xy=((i_width - u_width) / 2, (i_height - u_height - int((20 / 640) * i_width)) - 1),
-                text=l_text, font=m_font, fill=(0, 0, 0))
+                xy=(
+                    (i_width - u_width) / 2,
+                    (i_height - u_height - int((20 / 640) * i_width)) - 1,
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
             draw.text(
-                xy=((i_width - u_width) / 2, (i_height - u_height - int((20 / 640) * i_width)) + 1),
-                text=l_text, font=m_font, fill=(0, 0, 0))
+                xy=(
+                    (i_width - u_width) / 2,
+                    (i_height - u_height - int((20 / 640) * i_width)) + 1,
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(0, 0, 0),
+            )
 
             draw.text(
-                xy=((i_width - u_width) / 2, i_height - u_height - int((20 / 640) * i_width)),
-                text=l_text, font=m_font, fill=(255, 255, 255))
+                xy=(
+                    (i_width - u_width) / 2,
+                    i_height - u_height - int((20 / 640) * i_width),
+                ),
+                text=l_text,
+                font=m_font,
+                fill=(255, 255, 255),
+            )
             current_h += u_height + pad
 
     image_name = "memify.webp"
