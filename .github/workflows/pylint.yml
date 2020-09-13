@@ -41,7 +41,7 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'pylint: auto fixes'
-          commit_options: '--no-verify'
+          commit_options: '--no-verify --signoff'
           repository: .
           commit_user_name: MoveAngel
           commit_user_email: moveangel@minaproject.tech
