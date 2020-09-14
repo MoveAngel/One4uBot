@@ -28,7 +28,6 @@ from telethon.tl.types import DocumentAttributeAudio
 from urbandict import define
 from wikipedia import summary
 from wikipedia.exceptions import DisambiguationError, PageError
-from youtube_search import YoutubeSearch
 from youtube_dl import YoutubeDL
 from youtube_dl.utils import (
     ContentTooShortError,
@@ -40,7 +39,8 @@ from youtube_dl.utils import (
     UnavailableVideoError,
     XAttrMetadataError,
 )
-from asyncio import sleep
+from youtube_search import YoutubeSearch
+
 from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, WOLFRAM_ID
 from userbot.events import register
 from userbot.utils import chrome, googleimagesdownload, progress
@@ -78,15 +78,14 @@ async def carbon_api(e):
     driver = await chrome()
     driver.get(url)
     await e.edit("`Processing..\n50%`")
-    download_path = './'
+    download_path = "./"
     driver.command_executor._commands["send_command"] = (
-        "POST", '/session/$sessionId/chromium/send_command')
+        "POST",
+        "/session/$sessionId/chromium/send_command",
+    )
     params = {
-        'cmd': 'Page.setDownloadBehavior',
-        'params': {
-            'behavior': 'allow',
-            'downloadPath': download_path
-        }
+        "cmd": "Page.setDownloadBehavior",
+        "params": {"behavior": "allow", "downloadPath": download_path},
     }
     driver.execute("send_command", params)
     driver.find_element_by_xpath("//button[@id='export-menu']").click()
