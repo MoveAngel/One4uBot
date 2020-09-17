@@ -22,7 +22,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 from userbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
 from userbot.events import register
-from userbot.utils import progress
+from userbot.utils import progress, check_media
 
 Glitched = TEMP_DOWNLOAD_DIRECTORY + "glitch.gif"
 

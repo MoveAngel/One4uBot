@@ -7,6 +7,8 @@
 import re
 import hashlib
 
+from telethon.tl.types import DocumentAttributeFilename
+
 
 async def md5(fname: str) -> str:
     hash_md5 = hashlib.md5()
@@ -54,3 +56,32 @@ def human_to_bytes(size: str) -> int:
         size = re.sub(r'([KMGT])', r' \1', size)
     number, unit = [string.strip() for string in size.split()]
     return int(float(number) * units[unit])
+
+
+async def check_media(reply_message):
+    if reply_message and reply_message.media:
+        if reply_message.photo:
+            data = reply_message.photo
+        elif reply_message.document:
+            if (
+                DocumentAttributeFilename(file_name="AnimatedSticker.tgs")
+                in reply_message.media.document.attributes
+            ):
+                return False
+            if (
+                reply_message.gif
+                or reply_message.video
+                or reply_message.audio
+                or reply_message.voice
+            ):
+                return False
+            data = reply_message.media.document
+        else:
+            return False
+    else:
+        return False
+
+    if not data or data is None:
+        return False
+    else:
+        return data
