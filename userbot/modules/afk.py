@@ -11,8 +11,7 @@ from random import choice, randint
 
 from telethon.events import StopPropagation
 
-from userbot import PM_AUTO_BAN  # pylint: disable=unused-imports
-from userbot import AFKREASON, BOTLOG, BOTLOG_CHATID, CMD_HELP, COUNT_MSG, ISAFK, USERS
+from userbot import AFKREASON, BOTLOG, BOTLOG_CHATID, CMD_HELP, COUNT_MSG, ISAFK, USERS, PM_AUTO_BAN # noqa
 from userbot.events import register
 
 # ========================= CONSTANTS ============================
