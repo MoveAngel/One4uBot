@@ -82,7 +82,10 @@ async def last_fm(lastFM):
         for i, track in enumerate(recent):
             print(i)
             printable = await artist_and_song(track)
-            tags = await gettags(track)
+            try:
+                tags = await gettags(track)
+            except WSError as err:
+                return await lastFM.edit(err)
             rectrack = parse.quote(str(printable))
             rectrack = sub("^", "https://open.spotify.com/search/", rectrack)
             output += f"• [{printable}]({rectrack})\n"
