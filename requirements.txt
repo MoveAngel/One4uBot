@@ -55,4 +55,5 @@ urbandict
 wikipedia
 PyGithub
 python-dateutil
+vcsi
 youtube_search
