@@ -614,7 +614,7 @@ async def whatanime(e):
         )
         url = (
             "https://media.trace.moe/video/"
-            f'{urlencode(str(js0["anilist_id"]))}'+'/'
+            f'{urlencode(str(js0["anilist_id"]))}' + "/"
             f'{urlencode(js0["filename"])}'
             f'?t={urlencode(str(js0["at"]))}'
             f'&token={urlencode(js0["tokenthumb"])}'
