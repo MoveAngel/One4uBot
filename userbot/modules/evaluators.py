@@ -159,7 +159,7 @@ async def terminal_runner(term):
         )
         return
 
-    if command in ("userbot.session", "config.env"):
+    if command in ("userbot.session", "config.env", "env", "$", "$*", "echo"):
         await term.edit("`That's a dangerous operation! Not Permitted!`")
         return
 
