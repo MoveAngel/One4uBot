@@ -78,7 +78,8 @@ async def reedme(event):
         "\n[Setup Guide - LastFM Module](https://telegra.ph/How-to-set-up-LastFM-module-for-Paperplane-userbot-11-02)"
         "\n[Setup Guide - From MiHub with Pict](https://www.mihub.my.id/2020/05/jadiuserbot.html)"
         "\n[Setup Guide - In Indonesian Language](https://telegra.ph/UserIndoBot-05-21-3)"
-        "\n[Instant Setup - Generate String Session](https://userbotsession.moveangel.repl.run)"
+        "\n[Instant Setup - Generate String Session](https://repl.it/@MoveAngel/UserbotSession?lite=1&outputonly=1)"
+        "\n*For Instant Setup, click the green button called 'run' before use"
     )
 
 

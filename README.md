@@ -32,10 +32,10 @@
 ```
 
 ## Generate String Session
-Easy way to get STRING_SESSION. 
+Easy way to get STRING_SESSION. Click the button and then click button colored green in top 'Run'
 
 ### Run on repl.it
-[![Run repl.it](https://img.shields.io/badge/run-string__session.py-blue?style=flat-square&logo=repl.it)](https://userbotsession.moveangel.repl.run)
+[![Run repl.it](https://img.shields.io/badge/run-string__session.py-blue?style=flat-square&logo=repl.it)](https://repl.it/@MoveAngel/UserbotSession?lite=1&outputonly=1)
 
 ### or Run on your terminal
 ```
