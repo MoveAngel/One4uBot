@@ -2,8 +2,7 @@
 
 <p align="center">
     <a href="https://github.com/MoveAngel/One4uBot/actions?query=workflow%3AFailedChecker" > <img src="https://img.shields.io/github/workflow/status/MoveAngel/One4uBot/FailedChecker/sql-extended?label=Build&style=flat-square&logo=github-actions&logoColor=white&color=98CE00" alt="FailedChecker" /></a>
-    <a href="https://www.codacy.com/manual/MoveAngel/One4uBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MoveAngel/One4uBot&amp;utm_campaign=Badge_Grade"><img src="https://img.shields.io/codacy/grade/e758192aef1c4178be8777694409b248?style=flat-square&logo=codacy&color=17BEBB" alt="codacy badge"/></a>
-    <a href="https://github.com/MoveAngel/One4uBot/actions?query=workflow%3APyLint"> <img src="https://img.shields.io/github/workflow/status/MoveAngel/One4uBot/PyLint/sql-extended?label=PyLint&style=flat-square&logo=github-actions&logoColor=white&color=98CE00" alt="Pylint" /></a><br>
+    <a href="https://www.codacy.com/manual/MoveAngel/One4uBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MoveAngel/One4uBot&amp;utm_campaign=Badge_Grade"><img src="https://img.shields.io/codacy/grade/e758192aef1c4178be8777694409b248?style=flat-square&logo=codacy&color=17BEBB" alt="codacy badge"/></a><br>
     <a href="https://github.com/MoveAngel/One4uBot/commits/sql-extended"><img src="https://img.shields.io/github/last-commit/MoveAngel/One4uBot/sql-extended?label=Last%20Commit&style=flat-square&logo=github&color=8C86AA" alt="Commit" /></a>
     <a href="https://github.com/MoveAngel/One4uBot/graphs/contributors"><img src="https://img.shields.io/github/contributors-anon/MoveAngel/One4uBot?label=Contributors&style=flat-square&logo=github&color=FF4D80" alt="Contributors" /></a>
     <a href="https://github.com/MoveAngel/One4uBot/watchers"><img src="https://img.shields.io/github/watchers/MoveAngel/One4uBot?label=Watch&style=flat-square&logo=github&color=FF70A6" alt="Watch" /></a>
