@@ -19,7 +19,7 @@ from urllib.parse import quote_plus
 
 from bs4 import BeautifulSoup
 from emoji import get_emoji_regexp
-from googletrans import LANGUAGES, google_translator
+from google_trans_new import LANGUAGES, google_translator
 from gtts import gTTS
 from gtts.lang import tts_langs
 from requests import get
